@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <b:growl id="gro" delay="4000"/>
+
+        <b:form id="formTutor">
+
+            <b:commandButton value="novo registro" oncomplete="$('.modalcadastro').modal()" ajax="true"/>
+
+            <b:dataTable id="tableTutor" value="${tController.readAll()}" var="item">
+
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                        Codigo
+                    </f:facet>
+                    #{item.codigo}
+                </b:dataTableColumn>
+
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                        Email
+                    </f:facet>
+                    #{item.email}
+                </b:dataTableColumn>
+
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                        Usuario
+                    </f:facet>
+                    #{item.usuario}
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="Operacoes">
+                    <f:facet name="header">
+                        Operacoes
+                    </f:facet>
+
+                    <b:commandButton icon="search" ajax="true" oncomplete="$('.modalVisualiza').modal()" update=":modalVisualiza">
+                        <f:setPropertyActionListener value="#{item}" target="#{tController.selecionado}"/>
+                    </b:commandButton>
+
+                    <b:commandButton icon="pencil" ajax="true" oncomplete="$('.modalAltera').modal()" update=":formTutor:modalAltera">
+                        <f:setPropertyActionListener value="#{item}" target="#{tController.selecionado}"/>
+                    </b:commandButton>
+                    
+                    <b:commandButton icon="trash" ajax="true" oncomplete="$('.modalDeleta').modal()" update=":formTutor:modalDeleta">
+                        <f:setPropertyActionListener value="#{item}" target="#{tController.selecionado}"/>
+                    </b:commandButton>
+
+                </b:dataTableColumn>
+
+            </b:dataTable>
+            
+              <b:modal id="modalDeleta" title="Operacao" class="modalDeleta">
+                <h:outputText value="Deseja realment deletar o usuario ${tController.selecionado.usuario}"/>
+                <b:commandButton value="sim" action="${tController.delete()}" ajax="false" />
+                <b:button value="nao" dismiss="modal"/>
+            </b:modal>
+            
+
+        </b:form>
+
+        <b:modal id="modalCadastro" title="Cadastro de Tutor" class="modalcadastro">
+
+            <b:form id="formModal">              
+                <b:panelGrid columns="3">
+                    <h:outputText value="Nome: "/>
+                    <b:inputText value="#{tController.cadastro.usuario}" />
+                    <h:outputText value=""/>
+
+                    <h:outputText value="Email: "/>
+                    <b:inputText value="#{tController.cadastro.email}" />
+                    <h:outputText value=""/>
+
+                    <h:outputText value="Senha: "/>
+                    <b:inputSecret id="txtPassword" value="#{tController.cadastro.senha}" />
+                    <b:message for="txtPassword"/>
+
+                    <h:outputText value="Confirma senha: "/>
+                    <b:inputSecret value="#{confirma}" />
+                </b:panelGrid>
+                <b:commandButton value="cadastrar" action="#{tController.insert(confirma)}" ajax="false" update=":formTutor :formModal :gro"/> 
+            </b:form>
+        </b:modal>
+
+        <b:modal id="modalVisualiza" title="Visualizacao de Tutor" class="modalVisualiza">
+
+            <b:form id="formModalVisualiza">              
+                <b:panelGrid columns="3">
+                    <h:outputText value="Nome: "/>
+                    <h:outputText value="#{tController.selecionado.usuario}" />
+                    <h:outputText value=""/>
+
+                    <h:outputText value="Email: "/>
+                    <h:outputText value="#{tController.selecionado.email}" />
+                    <h:outputText value=""/>
+
+                </b:panelGrid>
+                <b:button value="close" dismiss="modal" />
+            </b:form>
+            
+        </b:modal>
+        
+              <b:modal id="modalAltera" title="Alterar um Tutor" class="modalAltera">
+
+              <b:form>
+                    <b:panelGrid columns="3">
+
+                        <h:outputText value="Nome: "/>
+                        <b:inputText value="#{tController.selecionado.usuario}" />
+                        <h:outputText value=""/>
+
+                        <h:outputText value="Email: "/>
+                        <b:inputText value="#{tController.selecionado.email}" />
+                        <h:outputText value=""/>
+
+                    </b:panelGrid>
+                    <b:commandButton value="alterar" action="#{tController.update()}"/> 
+               </b:form>
+            </b:modal>
+        
+        
+
+    </h:body>
+</html>
+
