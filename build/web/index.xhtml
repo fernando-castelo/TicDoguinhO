@@ -23,9 +23,34 @@
                     <b:inputSecret value="${senha}"/>
                 </b:panelGrid>
                 <b:commandButton value="logar" action="#{loginController.logar(email, senha)}"/><br/>
-                <b:commandLink value="registrar"/>
+                <b:commandLink value="Registrar" onclick="$('.modalcadastro').modal()"/>
             </b:panel>
         </b:form>
+        
+        <b:modal id="modalCadastro" title="Cadastrar Conta" class="modalcadastro">
+
+            <b:form id="formModal">              
+                <b:panelGrid columns="3">
+                    <h:outputText value="Nome: "/>
+                    <b:inputText value="#{tController.cadastro.usuario}" />
+                    <h:outputText value=""/>
+
+                    <h:outputText value="Email: "/>
+                    <b:inputText value="#{tController.cadastro.email}" />
+                    <h:outputText value=""/>
+
+                    <h:outputText value="Senha: "/>
+                    <b:inputSecret id="txtPassword" value="#{tController.cadastro.senha}" />
+                    <b:message for="txtPassword"/>
+
+                    <h:outputText value="Confirmar senha: "/>
+                    <b:inputSecret value="#{confirma}" />
+                </b:panelGrid>
+                <b:commandButton value="cadastrar" action="#{tController.insert(confirma)}" ajax="false"/> 
+                <b:button value="Cancelar" dismiss="modal"/>
+            </b:form>
+        </b:modal>
+        
     </h:body>
 </html>
 

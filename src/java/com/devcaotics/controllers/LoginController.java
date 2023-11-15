@@ -29,7 +29,7 @@ public class LoginController {
 
             this.logado = aux;
 
-            return "indexTutor.xhtml";
+            return "menuTutor.xhtml";
         
         } catch(IndexOutOfBoundsException o) {
             
@@ -38,6 +38,11 @@ public class LoginController {
                 
                 return null;
         }
+    }
+    
+    public String logout() {
+        this.logado = null;
+        return "index.xhtml";
     }
 
     public Tutor getLogado() {
