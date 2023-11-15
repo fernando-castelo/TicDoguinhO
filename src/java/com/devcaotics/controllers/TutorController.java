@@ -12,8 +12,10 @@ import javax.faces.application.FacesMessage;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -58,6 +60,22 @@ public class TutorController {
          
    }
    
+   public void updateTutorLogado() {
+       FacesContext facesContext = FacesContext.getCurrentInstance();
+       ExternalContext externalContext = facesContext.getExternalContext();
+       
+       HttpSession session = (HttpSession) externalContext.getSession(true);
+      
+       LoginController login = (LoginController) session.getAttribute("loginController");
+       
+       if (login != null) {
+           Tutor t = login.getLogado();
+           
+           ManagerDao.getCurrentInstance().update(this.selecionado);
+        }
+    }
+        
+
    public void delete() {
        
        

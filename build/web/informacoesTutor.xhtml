@@ -12,7 +12,7 @@
          
         <b:form id="formTutorInfo">
             
-            <b:commandButton value="Atualizar Informacoes"/>
+            <b:commandButton value="Atualizar Informacoes" oncomplete="$('.modalAltera').modal()" ajax="true"/>
             <b:commandButton value="Alterar Senha"/>
             <br/>
             
@@ -25,7 +25,23 @@
                 
             </b:panelGrid>
            
-        </b:form>
+        
+         <b:modal id="modalAltera" title="Alterar um Tutor" class="modalAltera">
+                    <b:panelGrid columns="3">
+
+                        <h:outputText value="Nome: "/>
+                        <b:inputText value="#{loginController.logado.usuario}" />
+                        <h:outputText value=""/>
+
+                        <h:outputText value="Email: "/>
+                        <b:inputText value="#{loginController.logado.email}" />
+                        <h:outputText value=""/>
+
+                    </b:panelGrid>
+                  <b:commandButton value="alterar" action="#{tController.updateTutorLogado()}"/>
+                  <b:button value="cancelar" dismiss="modal"/>
+            </b:modal>
+         </b:form>   
     </h:body>
 </html>
 
