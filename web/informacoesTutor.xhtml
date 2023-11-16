@@ -13,7 +13,7 @@
         <b:form id="formTutorInfo">
             
             <b:commandButton value="Atualizar Informacoes" oncomplete="$('.modalAltera').modal()" ajax="true"/>
-            <b:commandButton value="Alterar Senha"/>
+            <b:commandButton value="Alterar Senha" oncomplete="$('.modalAlteraSenha').modal()" ajax="true"/>
             <br/>
             
             <b:panelGrid columns="2">
@@ -40,8 +40,29 @@
                     </b:panelGrid>
                   <b:commandButton value="alterar" action="#{tController.updateTutorLogado()}"/>
                   <b:button value="cancelar" dismiss="modal"/>
-            </b:modal>
-         </b:form>   
+        </b:modal>
+            
+         <b:modal id="modalAlteraSenha" title="Alterar a senha" class="modalAlteraSenha">
+                    <b:panelGrid columns="3">
+
+                        <h:outputText value="Senha Atual: "/>
+                        <b:inputSecret value="#{atual}" />
+                        <h:outputText value=""/>
+
+                        <h:outputText value="Nova Senha: "/>
+                        <b:inputSecret value="#{nova}" />
+                        <h:outputText value=""/>
+                        
+                        <h:outputText value="Confirmacao: "/>
+                        <b:inputSecret value="#{confirma}" />
+                        <h:outputText value=""/>        
+
+                    </b:panelGrid>
+                  <b:commandButton value="alterar" action="#{tController.updateSenha(atual, nova, confirma)}"/>
+                  <b:button value="cancelar" dismiss="modal"/>
+        </b:modal>
+            
+        </b:form>   
     </h:body>
 </html>
 

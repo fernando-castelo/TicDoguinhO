@@ -73,9 +73,44 @@ public class TutorController {
            
            ManagerDao.getCurrentInstance().update(this.selecionado);
         }
-    }
-        
-
+     }
+   
+   
+   public void updateSenha(String atual, String nova, String confirma) {
+       
+       FacesContext facesContext = FacesContext.getCurrentInstance();
+       
+       ExternalContext externalContext = facesContext.getExternalContext();
+       
+       HttpSession session = (HttpSession) externalContext.getSession(true);
+       
+       LoginController login = (LoginController) session.getAttribute("loginController");
+       
+       if(!atual.equals(login.getLogado().getSenha())) {
+           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("A senha atual esta errada"));
+      
+           return;
+       }
+       
+       if(!nova.equals(confirma)) {
+           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("A confirmacao de senha esta incorreta"));
+           
+           return;
+       }
+       
+       Tutor t = login.getLogado();
+       
+       t.setSenha(nova);
+       
+       ManagerDao.getCurrentInstance().update(t);
+       
+       login.setLogado(null);
+       
+       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("A senha foi alterada com sucesso"));
+          
+   }
+         
+ 
    public void delete() {
        
        
