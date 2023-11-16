@@ -7,6 +7,7 @@ package com.devcaotics.controllers;
 
 import com.devcaotics.model.Tutor;
 import com.devcaotics.model.dao.ManagerDao;
+import com.devcaotics.utils.SessionUtils;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 
@@ -52,6 +53,13 @@ public class TutorController {
        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuario cadastrado com sucesso!"));
    }
    
+   public void addPetOnTutor(LoginController login) {
+       
+       login.getLogado().addPet(cadastro);
+       
+       ManagerDao.getCurrentInstance().update(login.getLogado());
+   }
+   
    public void update() { 
        
        ManagerDao.getCurrentInstance().update(this.selecionado);
@@ -61,12 +69,7 @@ public class TutorController {
    }
    
    public void updateTutorLogado() {
-       FacesContext facesContext = FacesContext.getCurrentInstance();
-       ExternalContext externalContext = facesContext.getExternalContext();
-       
-       HttpSession session = (HttpSession) externalContext.getSession(true);
-      
-       LoginController login = (LoginController) session.getAttribute("loginController");
+       LoginController login = SessionUtils.getLoginController();
        
        if (login != null) {
            Tutor t = login.getLogado();
@@ -78,13 +81,7 @@ public class TutorController {
    
    public void updateSenha(String atual, String nova, String confirma) {
        
-       FacesContext facesContext = FacesContext.getCurrentInstance();
-       
-       ExternalContext externalContext = facesContext.getExternalContext();
-       
-       HttpSession session = (HttpSession) externalContext.getSession(true);
-       
-       LoginController login = (LoginController) session.getAttribute("loginController");
+       LoginController login = SessionUtils.getLoginController();
        
        if(!atual.equals(login.getLogado().getSenha())) {
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("A senha atual esta errada"));

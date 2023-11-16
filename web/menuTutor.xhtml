@@ -19,11 +19,9 @@
                 </script>
             </c:if>
             
-            <b:navBar brand="Home" brand-href="indexTutor.xhtml">
+            <b:navBar brand="Home" brand-href="menuTutor.xhtml">
                 <b:navbarLinks>
-                    <b:navLink value="Link1">
-                        
-                    </b:navLink>
+                    <b:navCommandLink value="Seus Pets" action="menuPets.xhtml" href="#" />
                 </b:navbarLinks>
                 <b:navbarLinks pull="right">
                     <b:dropMenu value="#{loginController.logado.usuario}" icon="user">
@@ -31,7 +29,8 @@
                         <b:navCommandLink value="Logout" action="${loginController.logout()}" />
                     </b:dropMenu>
                 </b:navbarLinks>
-            </b:navBar>
+            </b:navBar> 
+                
         </b:form>
     </h:body>
 </html>

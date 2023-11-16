@@ -5,10 +5,13 @@
  */
 package com.devcaotics.model;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -27,6 +30,24 @@ public class Pet {
     private String mesAnoNascimento;
     
     private String porte;
+    
+    @ManyToMany(mappedBy = "pets")
+    private Set<Tutor> tutors = new HashSet<>();
+
+    public void addTutor(Tutor tutor) {
+        tutors.add(tutor);
+        tutor.getPets().add(this);
+    }
+
+    public void removeTutor(Tutor tutor) {
+        tutors.remove(tutor);
+        tutor.getPets().remove(this);
+    }
+
+    public Set<Tutor> getTutors() {
+        return tutors;
+    }
+    
 
     public int getCodigo() {
         return codigo;

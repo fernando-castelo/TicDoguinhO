@@ -5,10 +5,15 @@
  */
 package com.devcaotics.model;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -29,6 +34,28 @@ public class Tutor {
     private String senha;
     
     private Boolean mamae;
+    
+    @ManyToMany
+    @JoinTable(
+        name = "tutor_pet",
+        joinColumns = @JoinColumn(name = "tutor_codigo"),
+        inverseJoinColumns = @JoinColumn(name = "pet_codigo")
+    )
+    private Set<Pet> pets = new HashSet<>();
+    
+    public void addPet(Pet pet) {
+        pets.add(pet);
+        pet.getTutors().add(this);
+    }
+    
+     public void removePet(Pet pet) {
+        pets.remove(pet);
+        pet.getTutors().remove(this);
+    }
+
+    public Set<Pet> getPets() {
+        return pets;
+    }
 
     public int getCodigo() {
         return codigo;
@@ -68,6 +95,10 @@ public class Tutor {
 
     public void setMamae(Boolean mamae) {
         this.mamae = mamae;
+    }
+
+    public void addPet(Tutor cadastro) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

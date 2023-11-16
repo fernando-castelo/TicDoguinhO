@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+       <b:form id="menuPets">
+            
+        <b:navBar brand="Home" brand-href="menuTutor.xhtml">
+                 <b:navbarLinks>
+                     <b:navCommandLink value="Seus Pets" action="menuPets.xhtml" href="#" />
+                 </b:navbarLinks>
+                 <b:navbarLinks pull="right">
+                     <b:dropMenu value="#{loginController.logado.usuario}" icon="user">
+                         <b:navCommandLink value="Informacoes" action="informacoesTutor.xhtml" href="#"/>
+                         <b:navCommandLink value="Logout" action="${loginController.logout()}" />
+                     </b:dropMenu>
+                 </b:navbarLinks>
+         </b:navBar> 
+            
+         </b:form>
+       
+       <b:panelGrid columns="3">
+                    
+                    <h:outputText value="Nome: "/>
+                    <b:inputText value="#{petController.cadastro.nome}" />
+                    <h:outputText value=""/>
+                    
+                    <h:outputText value="Porte: "/>
+                    <b:inputText value="#{petController.cadastro.porte}" />
+                    <h:outputText value=""/>
+                    
+                    <h:outputText value="Ano de Nascimento: "/>
+                    <b:inputText value="#{petController.cadastro.mesAnoNascimento}" />
+                    <h:outputText value=""/>
+                        
+                </b:panelGrid>
+<!--                <b:commandButton value="cadastrar" action="#{petController.insert()}"/>-->
+    </h:body>
+</html>
+
