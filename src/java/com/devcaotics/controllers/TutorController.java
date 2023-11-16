@@ -5,10 +5,13 @@
  */
 package com.devcaotics.controllers;
 
+import com.devcaotics.model.Pet;
 import com.devcaotics.model.Tutor;
 import com.devcaotics.model.dao.ManagerDao;
 import com.devcaotics.utils.SessionUtils;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.faces.application.FacesMessage;
 
 import javax.faces.bean.ManagedBean;
@@ -37,6 +40,16 @@ public class TutorController {
     
     public List<Tutor> readAll() {
         return ManagerDao.getCurrentInstance().read("Select t from Tutor t", Tutor.class);
+    }
+    
+    
+    public List<Pet> getTutorPets() {
+        LoginController login = SessionUtils.getLoginController();
+        
+        Set<Pet> userPets = login.getLogado().getPets();
+        
+        List<Pet> petList = new ArrayList<>(userPets);
+        return petList;
     }
     
    public void insert(String confirma) {

@@ -2,12 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        
+       <b:growl id="gro" delay="4000"/>
        <b:form id="menuPets">
             
         <b:navBar brand="Home" brand-href="menuTutor.xhtml">
@@ -20,26 +21,105 @@
                          <b:navCommandLink value="Logout" action="${loginController.logout()}" />
                      </b:dropMenu>
                  </b:navbarLinks>
-         </b:navBar> 
-            
-         </b:form>
+        </b:navBar> 
+           
+        <b:commandButton value="Novo PET" oncomplete="$('.modalcadastro').modal()" ajax="true" />   
+
+        <b:dataTable id="tablePet" value="${tController.getTutorPets()}" var="item">
+
+             <b:dataTableColumn>
+                 <f:facet name="header">
+                     Codigo
+                 </f:facet>
+                 #{item.codigo}
+             </b:dataTableColumn>
+
+             <b:dataTableColumn>
+                 <f:facet name="header">
+                     Nome
+                 </f:facet>
+                 #{item.nome}
+             </b:dataTableColumn>
+
+             <b:dataTableColumn>
+                 <f:facet name="header">
+                     Porte
+                 </f:facet>
+                 #{item.porte}
+             </b:dataTableColumn>
+
+            <b:dataTableColumn>
+                 <f:facet name="header">
+                     Ano de Nascimento
+                 </f:facet>
+                 #{item.mesAnoNascimento}
+            </b:dataTableColumn>
+
+            <b:dataTableColumn label="Operacoes">
+                 <f:facet name="header">
+                     Operacoes
+                 </f:facet>
+
+                 <b:commandButton icon="search" ajax="true" oncomplete="$('.modalVisualiza').modal()" update=":modalVisualiza">
+                     <f:setPropertyActionListener value="#{item}" target="#{petController.selecionado}"/>
+                 </b:commandButton>
+
+<!--                    <b:commandButton icon="pencil" ajax="true" oncomplete="$('.modalAltera').modal()" update=":formTutor:modalAltera">
+                     <f:setPropertyActionListener value="#{item}" target="#{tController.selecionado}"/>
+                 </b:commandButton>
+
+                 <b:commandButton icon="trash" ajax="true" oncomplete="$('.modalDeleta').modal()" update=":formTutor:modalDeleta">
+                     <f:setPropertyActionListener value="#{item}" target="#{tController.selecionado}"/>
+                 </b:commandButton>-->
+
+             </b:dataTableColumn>
+
+        </b:dataTable>
+      </b:form>
        
-       <b:panelGrid columns="3">
-                    
-                    <h:outputText value="Nome: "/>
-                    <b:inputText value="#{petController.cadastro.nome}" />
-                    <h:outputText value=""/>
-                    
-                    <h:outputText value="Porte: "/>
-                    <b:inputText value="#{petController.cadastro.porte}" />
-                    <h:outputText value=""/>
-                    
-                    <h:outputText value="Ano de Nascimento: "/>
-                    <b:inputText value="#{petController.cadastro.mesAnoNascimento}" />
-                    <h:outputText value=""/>
-                        
+       <b:modal id="modalCadastro" title="Cadastro de PET" class="modalcadastro">
+       
+           <b:form id="formModal">
+                <b:panelGrid columns="3">
+                     <h:outputText value="Nome: "/>
+                     <b:inputText value="#{petController.selecionado.nome}" />
+                     <h:outputText value=""/>
+
+                     <h:outputText value="Porte: "/>
+                     <b:inputText value="#{petController.selecionado.porte}" />
+                     <h:outputText value=""/>
+
+                     <h:outputText value="Ano de Nascimento: "/>
+                     <b:inputText value="#{petController.selecionado.mesAnoNascimento}" />
+                     <h:outputText value=""/>
                 </b:panelGrid>
-<!--                <b:commandButton value="cadastrar" action="#{petController.insert()}"/>-->
+               <b:commandButton value="cadastrar" action="#{petController.insert()}" ajax="false" update=":formModal :gro"/> 
+                <b:button value="close" dismiss="modal"/>
+            </b:form>
+        </b:modal>
+       
+       <b:modal id="modalVisualiza" title="Visualizar Informacao do PET" class="modalVisualiza">
+       
+           <b:form id="formModalVisualiza">
+                <b:panelGrid columns="3">
+                     <h:outputText value="Nome: "/>
+                     <h:outputText value="#{petController.selecionado.nome}" />
+                     <h:outputText value=""/>
+
+                     <h:outputText value="Porte: "/>
+                     <h:outputText value="#{petController.selecionado.porte}" />
+                     <h:outputText value=""/>
+
+                     <h:outputText value="Ano de Nascimento: "/>
+                     <h:outputText value="#{petController.selecionado.mesAnoNascimento}" />
+                     <h:outputText value=""/>
+                </b:panelGrid>
+                <b:button value="close" dismiss="modal"/>
+            </b:form>
+        </b:modal>
+       
+       
+        
     </h:body>
 </html>
 
