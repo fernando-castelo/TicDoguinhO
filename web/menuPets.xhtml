@@ -60,13 +60,19 @@
                      Operacoes
                  </f:facet>
 
-                 <b:commandButton icon="search" ajax="true" oncomplete="$('.modalVisualiza').modal()" update=":modalVisualiza">
+                 <b:commandButton icon="search" ajax="true" oncomplete="$('.modalVisualiza').modal()" update=":menuPets :modalVisualiza">
                      <f:setPropertyActionListener value="#{item}" target="#{petController.selecionado}"/>
                  </b:commandButton>
 
-<!--                    <b:commandButton icon="pencil" ajax="true" oncomplete="$('.modalAltera').modal()" update=":formTutor:modalAltera">
-                     <f:setPropertyActionListener value="#{item}" target="#{tController.selecionado}"/>
+                 <b:commandButton icon="pencil" ajax="true" oncomplete="$('.modalAltera').modal()" update=":menuPets:modalAltera">
+                     <f:setPropertyActionListener value="#{item}" target="#{petController.selecionado}"/>
                  </b:commandButton>
+                
+                <b:commandButton value="compartilhar" ajax="true" oncomplete="$('.modalCompartilha').modal()" update=":menuPets:modalCompartilha">
+                    <f:setPropertyActionListener value="#{item}" target="#{petController.selecionado}"/>
+                </b:commandButton>
+                
+                <!--
 
                  <b:commandButton icon="trash" ajax="true" oncomplete="$('.modalDeleta').modal()" update=":formTutor:modalDeleta">
                      <f:setPropertyActionListener value="#{item}" target="#{tController.selecionado}"/>
@@ -75,11 +81,9 @@
              </b:dataTableColumn>
 
         </b:dataTable>
-      </b:form>
-       
-       <b:modal id="modalCadastro" title="Cadastro de PET" class="modalcadastro">
-       
-           <b:form id="formModal">
+        
+         <b:modal id="modalAltera" title="Alterar Informacao do PET" class="modalAltera">
+      
                 <b:panelGrid columns="3">
                      <h:outputText value="Nome: "/>
                      <b:inputText value="#{petController.selecionado.nome}" />
@@ -93,10 +97,42 @@
                      <b:inputText value="#{petController.selecionado.mesAnoNascimento}" />
                      <h:outputText value=""/>
                 </b:panelGrid>
-               <b:commandButton value="cadastrar" action="#{petController.insert()}" ajax="false" update=":formModal :gro"/> 
+                <b:commandButton value="alterar" action="#{petController.update()}"/> 
+                <b:button value="close" dismiss="modal"/>
+        </b:modal>
+        
+         <b:modal id="modalCompartilha" title="Compartilhar PET" class="modalCompartilha">
+                <b:panelGrid columns="3">
+                    <h:outputText value="Digite o codigo do Tutor: "/>
+                    <b:inputText value="#{codigoTutor}"/>
+                </b:panelGrid>
+                <b:button value="close" dismiss="modal"/>
+                <b:commandButton value="compartilhar" action="#{tController.compartilharPet(codigoTutor, petController.selecionado)}"/>
+       </b:modal>
+        
+      </b:form>
+       
+       <b:modal id="modalCadastro" title="Cadastro de PET" class="modalcadastro">
+       
+           <b:form id="formModal">
+                <b:panelGrid columns="3">
+                     <h:outputText value="Nome: "/>
+                     <b:inputText value="#{petController.cadastro.nome}" />
+                     <h:outputText value=""/>
+
+                     <h:outputText value="Porte: "/>
+                     <b:inputText value="#{petController.cadastro.porte}" />
+                     <h:outputText value=""/>
+
+                     <h:outputText value="Ano de Nascimento: "/>
+                     <b:inputText value="#{petController.cadastro.mesAnoNascimento}" />
+                     <h:outputText value=""/>
+                </b:panelGrid>
+               <b:commandButton value="cadastrar" action="#{petController.insert()}" ajax="false" update=":menuPets :formModal :gro"/> 
                 <b:button value="close" dismiss="modal"/>
             </b:form>
         </b:modal>
+       
        
        <b:modal id="modalVisualiza" title="Visualizar Informacao do PET" class="modalVisualiza">
        

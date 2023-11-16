@@ -19,6 +19,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.servlet.http.HttpSession;
 
 
@@ -40,6 +41,25 @@ public class TutorController {
     
     public List<Tutor> readAll() {
         return ManagerDao.getCurrentInstance().read("Select t from Tutor t", Tutor.class);
+    }
+    
+    public Tutor readTutor(String tutorId) {
+        String queryString = "SELECT t FROM Tutor t WHERE t.codigo = :tutorId";
+        Query query = (Query) ManagerDao.getCurrentInstance().read(queryString, Tutor.class);
+        query.setParameter("tutorId", tutorId);
+        Tutor tutor = (Tutor) query.getSingleResult();
+        
+        return tutor;
+    }
+    
+    public void compartilharPet(String tutorId, Pet pet) {
+        
+        Tutor tutor = this.readTutor(tutorId);
+        tutor.addPet(pet);
+        ManagerDao.getCurrentInstance().update(tutor);
+        
+        pet.addTutor(tutor);
+        ManagerDao.getCurrentInstance().update(pet);
     }
     
     

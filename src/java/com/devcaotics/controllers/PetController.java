@@ -51,15 +51,8 @@ public class PetController {
 ////        
 ////        return query.getResultList();
 //    }
-
-    public Pet getSelecionado() {
-        return selecionado;
-    }
-
-    public void setSelecionado(Pet selecionado) {
-        this.selecionado = selecionado;
-    }
     
+
     
     public void insert() {
         
@@ -77,6 +70,22 @@ public class PetController {
        
        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pet cadastrado com sucesso!"));
     }
+    
+      public void update() {
+          ManagerDao.getCurrentInstance().update(this.selecionado);
+          
+          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pet atualizado com sucesso!"));
+      }
+      
+    
+      public Pet getSelecionado() {
+        return selecionado;
+    }
+
+    public void setSelecionado(Pet selecionado) {
+        this.selecionado = selecionado;
+    }
+    
     
     public Pet getCadastro() {
         return cadastro;
