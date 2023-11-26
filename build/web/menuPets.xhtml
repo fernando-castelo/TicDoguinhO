@@ -105,9 +105,11 @@
                 <b:panelGrid columns="3">
                     <h:outputText value="Digite o codigo do Tutor: "/>
                     <b:inputText value="#{codigoTutor}"/>
+                    
+                    
                 </b:panelGrid>
                 <b:button value="close" dismiss="modal"/>
-                <b:commandButton value="compartilhar" action="#{tController.compartilharPet(codigoTutor, petController.selecionado)}"/>
+                <b:commandButton value="compartilhar" action="#{tController.compartilharPet(codigoTutor, petController.selecionado.codigo)}"/>
        </b:modal>
         
       </b:form>

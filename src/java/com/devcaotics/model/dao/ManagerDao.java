@@ -5,11 +5,13 @@
  */
 package com.devcaotics.model.dao;
 
+import com.devcaotics.model.Pet;
 import com.devcaotics.model.Tutor;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -61,6 +63,29 @@ public class ManagerDao {
         em.close();
         
         return returnedList;
+    }
+    
+    public Tutor readTutor(String tutorId) {
+        
+        EntityManager em = emf.createEntityManager();
+            
+        Query query = em.createQuery("SELECT t FROM Tutor t WHERE t.codigo = :tutorId");
+        query.setParameter("tutorId", Integer.parseInt(tutorId));
+        Tutor tutor = (Tutor) query.getSingleResult();
+        
+        return tutor;
+        
+    }
+    
+    public Pet readPet(String petId) {
+        
+        EntityManager em = emf.createEntityManager();
+            
+        Query query = em.createQuery("SELECT p FROM Pet p WHERE p.codigo = :petId");
+        query.setParameter("petId", Integer.parseInt(petId));
+        Pet pet = (Pet) query.getSingleResult();
+        
+        return pet;
     }
     
     public void delete(Object o){

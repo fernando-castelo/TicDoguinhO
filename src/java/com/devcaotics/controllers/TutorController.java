@@ -16,11 +16,11 @@ import javax.faces.application.FacesMessage;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.servlet.http.HttpSession;
 
 
 /**
@@ -44,22 +44,23 @@ public class TutorController {
     }
     
     public Tutor readTutor(String tutorId) {
-        String queryString = "SELECT t FROM Tutor t WHERE t.codigo = :tutorId";
-        Query query = (Query) ManagerDao.getCurrentInstance().read(queryString, Tutor.class);
-        query.setParameter("tutorId", tutorId);
-        Tutor tutor = (Tutor) query.getSingleResult();
+       
+        Tutor tutor = ManagerDao.getCurrentInstance().readTutor(tutorId);
         
+        System.out.println(tutor + " imprimir tutor");
         return tutor;
     }
     
-    public void compartilharPet(String tutorId, Pet pet) {
+    public void compartilharPet(String tutorId, String petId) {
         
         Tutor tutor = this.readTutor(tutorId);
-        tutor.addPet(pet);
-        ManagerDao.getCurrentInstance().update(tutor);
+        Pet pet = ManagerDao.getCurrentInstance().readPet(petId);
         
         pet.addTutor(tutor);
         ManagerDao.getCurrentInstance().update(pet);
+        
+        tutor.addPet(pet);
+        ManagerDao.getCurrentInstance().update(tutor);         
     }
     
     
@@ -142,7 +143,6 @@ public class TutorController {
          
  
    public void delete() {
-       
        
        ManagerDao.getCurrentInstance().delete(this.selecionado);
       
