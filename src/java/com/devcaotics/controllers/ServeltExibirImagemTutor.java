@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Nando
  */
 
-@WebServlet(name = "ServeltExibirImagemTutor", urlPatterns = {"/ServeltExibirImagemTutor"})
+@WebServlet(name = "ServletExibirImagemTutor", urlPatterns = {"/ServletExibirImagemTutor"})
 public class ServeltExibirImagemTutor extends HttpServlet {
     
     

@@ -161,6 +161,10 @@ public class TutorController {
        
        this.tagImagem = "http://localhost:8080/ticdoguinho1/ServletExibirImagemTutor";
    }
+   
+   public String getImageUrl(Tutor tutor) {
+       return "/ServletExibirImagemTutor?tutorId=" + tutor.getCodigo();
+   }
          
  
    public void delete() {

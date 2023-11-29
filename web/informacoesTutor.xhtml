@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -12,6 +13,8 @@
          
         <b:form id="formTutorInfo">
             
+            <p:graphicImage value="#{tController.getImageUrl(loginController.logado)}" alt="Profile Picture" />
+            <br/>
             <b:commandButton value="Atualizar Informacoes" oncomplete="$('.modalAltera').modal()" ajax="true"/>
             <b:commandButton value="Alterar Senha" oncomplete="$('.modalAlteraSenha').modal()" ajax="true"/>
             <br/>
