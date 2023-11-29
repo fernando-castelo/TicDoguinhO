@@ -32,6 +32,8 @@ public class Pet {
     
     private String porte;
     
+    private Double codigoFoto;
+    
     @Lob
     private byte[] imagem;
     
@@ -93,6 +95,12 @@ public class Pet {
         this.imagem = imagem;
     }
     
-    
+    public Double getCodigoFoto() {
+        return codigoFoto;
+    }
+
+    public void setCodigoFoto(Double codigoFoto) {
+        this.codigoFoto = codigoFoto;
+    }
     
 }

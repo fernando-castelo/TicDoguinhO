@@ -41,7 +41,7 @@
             
             <h:panelGroup rendered="#{not empty tController.tutorPets}">
                 <ui:repeat value="#{tController.tutorPets}" var="pet">
-                    <p:graphicImage styleClass="rounded-image resized-image" class="rounded-circle" value="#{petController.getImageUrl(pet)}" alt="Profile Picture" />
+                    <p:graphicImage styleClass="rounded-image resized-image" class="rounded-circle" value="#{petController.getImagem(pet.codigoFoto)}" alt="Profile Picture" />
                     <h:outputText value="#{pet.nome}"/>
                 </ui:repeat>
             </h:panelGroup>

@@ -9,6 +9,8 @@ import com.devcaotics.model.Pet;
 import com.devcaotics.model.dao.ManagerDao;
 import com.devcaotics.utils.SessionUtils;
 import java.io.IOException;
+import java.util.Random;
+import java.util.HashMap;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -34,11 +36,32 @@ public class PetController {
     
     private String tagImagem;
     
+    private HashMap<Double, byte []> imagens = new HashMap<Double, byte []>();
+    
+    private Random random;
+    
+    public void addImagem(Double codigo, byte[] imagem) {
+        this.imagens.put(codigo, imagem);
+    }
+    
+    public void deleteImagem(Double codigo) {
+        this.imagens.remove(codigo);
+    }
+    
+    public byte[] getImagem(Double codigo) {
+        return this.imagens.get(codigo);
+    }
+
+    public HashMap<Double, byte[]> getImagens() {
+        return imagens;
+    }
+    
     private EntityManager entityManager;
 
     public PetController() {
         this.cadastro = new Pet();
         this.selecionado = new Pet();
+        this.random = new Random();
     }
     
     public List<Pet> readAll() {
@@ -94,6 +117,14 @@ public class PetController {
        ((HttpSession)FacesContext.getCurrentInstance()
                .getExternalContext().getSession(true))
                .setAttribute("imagem", this.cadastro.getImagem());
+       
+       
+       Double randomCodigo = random.nextDouble() * 100;
+       this.addImagem(randomCodigo, this.cadastro.getImagem());
+       
+       this.cadastro.setCodigoFoto(randomCodigo);
+       
+       this.tagImagem = "http://localhost:8080/ticdoguinho1/ServletExibirImagemPet";
        
     }
       
