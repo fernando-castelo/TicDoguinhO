@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 
 /**
@@ -34,6 +35,9 @@ public class Tutor {
     private String senha;
     
     private Boolean mamae;
+    
+    @Lob
+    private byte[] imagem;
     
     @ManyToMany
     @JoinTable(
@@ -99,6 +103,14 @@ public class Tutor {
 
     public void addPet(Tutor cadastro) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public byte[] getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
     }
     
     

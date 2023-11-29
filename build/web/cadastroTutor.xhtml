@@ -18,6 +18,11 @@
                 
                 <h:outputText value="Senha: "/>
                 <p:inputText value=""/>
+                
+                <h:outputText value="Foto de Perfil: "/>
+                <p:fileUpload fileUploadListener="#{tController.handleFileUpload}" mode="advanced"
+                              auto="true" sizeLimit="2000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                              />
             </p:panelGrid>
         </h:form>
     </h:body>

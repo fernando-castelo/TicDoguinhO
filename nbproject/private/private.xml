@@ -3,11 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Nando/OneDrive/Documentos/NetBeansProjects/TicDoguinhO/src/conf/persistence.xml</file>
             <file>file:/C:/Users/Nando/OneDrive/Documentos/NetBeansProjects/TicDoguinhO/src/java/com/devcaotics/model/Pet.java</file>
             <file>file:/C:/Users/Nando/OneDrive/Documentos/NetBeansProjects/TicDoguinhO/src/java/com/devcaotics/model/Tutor.java</file>
+            <file>file:/C:/Users/Nando/OneDrive/Documentos/NetBeansProjects/TicDoguinhO/src/java/com/devcaotics/controllers/TutorController.java</file>
             <file>file:/C:/Users/Nando/OneDrive/Documentos/NetBeansProjects/TicDoguinhO/src/java/com/devcaotics/model/dao/ManagerDao.java</file>
+            <file>file:/C:/Users/Nando/OneDrive/Documentos/NetBeansProjects/TicDoguinhO/web/menuPets.xhtml</file>
+            <file>file:/C:/Users/Nando/OneDrive/Documentos/NetBeansProjects/TicDoguinhO/src/java/com/devcaotics/controllers/PetController.java</file>
             <file>file:/C:/Users/Nando/OneDrive/Documentos/NetBeansProjects/TicDoguinhO/web/index.xhtml</file>
+            <file>file:/C:/Users/Nando/OneDrive/Documentos/NetBeansProjects/TicDoguinhO/src/java/com/devcaotics/controllers/LoginController.java</file>
         </group>
     </open-files>
 </project-private>

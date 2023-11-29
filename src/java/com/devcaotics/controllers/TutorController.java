@@ -9,6 +9,7 @@ import com.devcaotics.model.Pet;
 import com.devcaotics.model.Tutor;
 import com.devcaotics.model.dao.ManagerDao;
 import com.devcaotics.utils.SessionUtils;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.servlet.http.HttpSession;
+import org.primefaces.event.FileUploadEvent;
 
 
 /**
@@ -33,6 +36,8 @@ public class TutorController {
     
     private Tutor cadastro;
     private Tutor selecionado;
+    
+    private String tagImagem;
     
     public TutorController() {
         this.cadastro = new Tutor();
@@ -140,11 +145,27 @@ public class TutorController {
        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("A senha foi alterada com sucesso"));
           
    }
+   
+   public void handleFileUpload(FileUploadEvent event) throws IOException {
+       
+       byte[] im = new byte[(int) event.getFile().getSize()];
+       
+       event.getFile().getInputstream().read(im);
+       
+       this.cadastro.setImagem(im);
+       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Imagem Uploidada"));
+       
+       ((HttpSession)FacesContext.getCurrentInstance()
+               .getExternalContext().getSession(true))
+               .setAttribute("imagem", this.cadastro.getImagem());
+       
+       this.tagImagem = "http://localhost:8080/ticdoguinho1/ServletExibirImagemTutor";
+   }
          
  
    public void delete() {
        
-       ManagerDao.getCurrentInstance().delete(this.selecionado);
+         ManagerDao.getCurrentInstance().delete(this.selecionado);
       
        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuario deletado com sucesso!"));
     }

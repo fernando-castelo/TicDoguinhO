@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -29,7 +30,7 @@
         
         <b:modal id="modalCadastro" title="Cadastrar Conta" class="modalcadastro">
 
-            <b:form id="formModal">              
+            <b:form enctype="multipart/form-data" id="formModal">              
                 <b:panelGrid columns="3">
                     <h:outputText value="Nome: "/>
                     <b:inputText value="#{tController.cadastro.usuario}" />
@@ -45,6 +46,11 @@
 
                     <h:outputText value="Confirmar senha: "/>
                     <b:inputSecret value="#{confirma}" />
+                    
+                    <h:outputText value="Foto de Perfil: "/>
+                    <p:fileUpload fileUploadListener="#{tController.handleFileUpload}" mode="advanced"
+                                      auto="true" sizeLimit="2000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                      />
                 </b:panelGrid>
                 <b:commandButton value="cadastrar" action="#{tController.insert(confirma)}" ajax="false"/> 
                 <b:button value="Cancelar" dismiss="modal"/>
