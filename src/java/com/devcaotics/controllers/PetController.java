@@ -8,6 +8,7 @@ package com.devcaotics.controllers;
 import com.devcaotics.model.Pet;
 import com.devcaotics.model.dao.ManagerDao;
 import com.devcaotics.utils.SessionUtils;
+import java.io.IOException;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -17,6 +18,7 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.servlet.http.HttpSession;
+import org.primefaces.event.FileUploadEvent;
 
 /**
  *
@@ -29,6 +31,8 @@ public class PetController {
     
     private Pet cadastro;
     private Pet selecionado;
+    
+    private String tagImagem;
     
     private EntityManager entityManager;
 
@@ -77,6 +81,26 @@ public class PetController {
           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pet atualizado com sucesso!"));
       }
       
+      
+      public void handleFileUpload(FileUploadEvent event) throws IOException {
+       
+       byte[] im = new byte[(int) event.getFile().getSize()];
+       
+       event.getFile().getInputstream().read(im);
+       
+       this.cadastro.setImagem(im);
+       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Imagem Uploidada"));
+       
+       ((HttpSession)FacesContext.getCurrentInstance()
+               .getExternalContext().getSession(true))
+               .setAttribute("imagem", this.cadastro.getImagem());
+       
+    }
+      
+       public String getImageUrl(Pet pet) {
+       return "/ServletExibirImagemPet?petId=" + pet.getCodigo();
+   }
+     
     
       public Pet getSelecionado() {
         return selecionado;

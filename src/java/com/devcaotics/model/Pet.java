@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 
 /**
@@ -30,6 +31,9 @@ public class Pet {
     private String mesAnoNascimento;
     
     private String porte;
+    
+    @Lob
+    private byte[] imagem;
     
     @ManyToMany(mappedBy = "pets")
     private Set<Tutor> tutors = new HashSet<>();
@@ -80,5 +84,15 @@ public class Pet {
     public void setPorte(String porte) {
         this.porte = porte;
     }
+
+    public byte[] getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
+    }
+    
+    
     
 }

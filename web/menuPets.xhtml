@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -116,7 +117,7 @@
        
        <b:modal id="modalCadastro" title="Cadastro de PET" class="modalcadastro">
        
-           <b:form id="formModal">
+           <b:form id="formModal" enctype="multipart/form-data">
                 <b:panelGrid columns="3">
                      <h:outputText value="Nome: "/>
                      <b:inputText value="#{petController.cadastro.nome}" />
@@ -129,6 +130,11 @@
                      <h:outputText value="Ano de Nascimento: "/>
                      <b:inputText value="#{petController.cadastro.mesAnoNascimento}" />
                      <h:outputText value=""/>
+                     
+                     <h:outputText value="Foto de Perfil: "/>
+                     <p:fileUpload fileUploadListener="#{petController.handleFileUpload}" mode="advanced"
+                                  auto="true" sizeLimit="2000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                  />
                 </b:panelGrid>
                <b:commandButton value="cadastrar" action="#{petController.insert()}" ajax="false" update=":menuPets :formModal :gro"/> 
                 <b:button value="close" dismiss="modal"/>

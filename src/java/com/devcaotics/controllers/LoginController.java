@@ -46,6 +46,13 @@ public class LoginController {
         this.logado = null;
         return "index.xhtml";
     }
+    
+     public void initializePets() {
+        if (logado != null && logado.getPets() != null) {
+            logado.getPets().size();
+        }
+    }
+    
 
     public Tutor getLogado() {
         return logado;

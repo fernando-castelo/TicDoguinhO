@@ -7,13 +7,26 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
+         <h:outputStylesheet name="style.css" />
     </h:head>
     <h:body>
-        <ui:include src="menuTutor.xhtml"/>
+<!--        <ui:include src="menuTutor.xhtml"/>-->
          
         <b:form id="formTutorInfo">
             
-            <p:graphicImage value="#{tController.getImageUrl(loginController.logado)}" alt="Profile Picture" />
+             <b:navBar brand="Home" brand-href="menuTutor.xhtml">
+                 <b:navbarLinks>
+                     <b:navCommandLink value="Seus Pets" action="menuPets.xhtml" href="#" />
+                 </b:navbarLinks>
+                 <b:navbarLinks pull="right">
+                     <b:dropMenu value="#{loginController.logado.usuario}" icon="user">
+                         <b:navCommandLink value="Informacoes" action="informacoesTutor.xhtml" href="#"/>
+                         <b:navCommandLink value="Logout" action="${loginController.logout()}" />
+                     </b:dropMenu>
+                 </b:navbarLinks>
+            </b:navBar> 
+            
+            <p:graphicImage styleClass="rounded-image resized-image" class="rounded-circle" value="#{tController.getImageUrl(loginController.logado)}" alt="Profile Picture" />
             <br/>
             <b:commandButton value="Atualizar Informacoes" oncomplete="$('.modalAltera').modal()" ajax="true"/>
             <b:commandButton value="Alterar Senha" oncomplete="$('.modalAlteraSenha').modal()" ajax="true"/>

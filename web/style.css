@@ -1,0 +1,12 @@
+/* Styles to round the image */
+.rounded-image {
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+/* Styles to set the size of the image */
+.resized-image {
+    width: 100px; /* Adjust the width as needed */
+    height: 100px; /* Adjust the height as needed */
+    object-fit: cover; /* Ensures the image covers the entire container */
+}

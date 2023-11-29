@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -30,6 +32,20 @@
                     </b:dropMenu>
                 </b:navbarLinks>
             </b:navBar> 
+            
+<!--            <c:if test="#{tController.tutorPets != null}">
+                <c:forEach items="#{tController.tutorPets}" var="pet">
+                    <h:outputText value="#{pet.nome}"/>
+                </c:forEach>
+            </c:if>-->
+            
+            <h:panelGroup rendered="#{not empty tController.tutorPets}">
+                <ui:repeat value="#{tController.tutorPets}" var="pet">
+                    <p:graphicImage styleClass="rounded-image resized-image" class="rounded-circle" value="#{petController.getImageUrl(pet)}" alt="Profile Picture" />
+                    <h:outputText value="#{pet.nome}"/>
+                </ui:repeat>
+            </h:panelGroup>
+            
                 
         </b:form>
     </h:body>

@@ -76,7 +76,8 @@ public class TutorController {
         
         List<Pet> petList = new ArrayList<>(userPets);
         return petList;
-    }
+    } 
+    
     
    public void insert(String confirma) {
        
