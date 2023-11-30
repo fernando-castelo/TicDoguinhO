@@ -5,7 +5,10 @@
  */
 package com.devcaotics.controllers;
 
+import com.devcaotics.model.Tutor;
+import com.devcaotics.model.dao.ManagerDao;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,13 +46,19 @@ public class ServeltExibirImagemTutor extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        byte[] imagem = (byte[])request.getSession().getAttribute("imagem");
+        
+        String tutorId = request.getParameter("tutorId");
+        
+        Tutor tutor = ManagerDao.getCurrentInstance().readTutor(tutorId);
+        
+        byte[] imagem = tutor.getImagem();
         
         response.setContentType("image/jpg");
         
-        response.getOutputStream().write(imagem);
-        
-        response.getOutputStream().flush();
+         try (OutputStream outputStream = response.getOutputStream()) {
+                response.getOutputStream().write(imagem);        
+                response.getOutputStream().flush();
+            }
         
     }
     

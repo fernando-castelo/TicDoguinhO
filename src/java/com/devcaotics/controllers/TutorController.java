@@ -37,7 +37,6 @@ public class TutorController {
     private Tutor cadastro;
     private Tutor selecionado;
     
-    private String tagImagem;
     
     public TutorController() {
         this.cadastro = new Tutor();
@@ -155,12 +154,7 @@ public class TutorController {
        
        this.cadastro.setImagem(im);
        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Imagem Uploidada"));
-       
-       ((HttpSession)FacesContext.getCurrentInstance()
-               .getExternalContext().getSession(true))
-               .setAttribute("imagem", this.cadastro.getImagem());
-       
-       this.tagImagem = "http://localhost:8080/ticdoguinho1/ServletExibirImagemTutor";
+          
    }
    
    public String getImageUrl(Tutor tutor) {
