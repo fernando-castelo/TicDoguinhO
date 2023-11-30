@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.UUID;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -36,34 +37,11 @@ public class PetController {
     private Pet cadastro;
     private Pet selecionado;
     
-    private String tagImagem;
-    
-    private HashMap<Double, byte []> imagens = new HashMap<Double, byte []>();
-    
-    private Random random;
-    
-    public void addImagem(Double codigo, byte[] imagem) {
-        this.imagens.put(codigo, imagem);
-    }
-    
-    public void deleteImagem(Double codigo) {
-        this.imagens.remove(codigo);
-    }
-    
-    public byte[] getImagem(Double codigo) {
-        return this.imagens.get(codigo);
-    }
-
-    public HashMap<Double, byte[]> getImagens() {
-        return imagens;
-    }
-    
     private EntityManager entityManager;
 
     public PetController() {
         this.cadastro = new Pet();
         this.selecionado = new Pet();
-        this.random = new Random();
     }
     
     public List<Pet> readAll() {
@@ -129,11 +107,15 @@ public class PetController {
        
     }
       
-       public String getImageUrl(Pet pet) {
-       return "/ServletExibirImagemPet?petId=" + pet.getCodigo();
-    }
+    public String getImageUrl(Pet pet) {
+        return "/ServletExibirImagemPet?petId=" + pet.getCodigo();
+     }
        
-    
+    public String navigateToPetPage(Pet pet) {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("selectedPet", pet);
+        return "menuPetIndividual.xhtml";
+    }  
+       
       public Pet getSelecionado() {
         return selecionado;
     }
