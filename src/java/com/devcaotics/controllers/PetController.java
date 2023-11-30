@@ -8,6 +8,7 @@ package com.devcaotics.controllers;
 import com.devcaotics.model.Pet;
 import com.devcaotics.model.dao.ManagerDao;
 import com.devcaotics.utils.SessionUtils;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Random;
 import java.util.HashMap;
@@ -118,9 +119,9 @@ public class PetController {
        
        this.cadastro.setCodigoFoto(randomCodigo);
        
-//       ((HttpSession)FacesContext.getCurrentInstance()
-//               .getExternalContext().getSession(true))
-//               .setAttribute("imagem", this.cadastro.getImagem());
+       ((HttpSession)FacesContext.getCurrentInstance()
+               .getExternalContext().getSession(true))
+               .setAttribute("imagem", this.cadastro.getImagem());
 
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
                 .put("petImage_" + randomCodigo, this.cadastro.getImagem());
@@ -129,9 +130,9 @@ public class PetController {
     }
       
        public String getImageUrl(Pet pet) {
-       return "/ServletExibirImagemPet?imageId=" + pet.getCodigoFoto();
-   }
-     
+       return "/ServletExibirImagemPet?petId=" + pet.getCodigo();
+    }
+       
     
       public Pet getSelecionado() {
         return selecionado;

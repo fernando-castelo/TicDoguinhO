@@ -77,6 +77,7 @@ public class ManagerDao {
         
     }
     
+    
     public Pet readPet(String petId) {
         
         EntityManager em = emf.createEntityManager();

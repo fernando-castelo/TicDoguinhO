@@ -5,13 +5,18 @@
  */
 package com.devcaotics.controllers;
 
+import com.devcaotics.model.Pet;
+import com.devcaotics.model.dao.ManagerDao;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 /**
  *
@@ -37,19 +42,22 @@ public class ServletExibirImagenPet extends HttpServlet {
         }
     }
      
-      @Override
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String imageId = request.getParameter("imageId");
-        byte[] imagem = (byte[])request.getSession().getAttribute("petImage_" + imageId);
-        
-        response.setContentType("image/jpg");
-        
-        response.getOutputStream().write(imagem);
-        
-        response.getOutputStream().flush();
-        
+
+           String petId = request.getParameter("petId");
+
+           Pet pet = ManagerDao.getCurrentInstance().readPet(petId); 
+
+           byte[] imageData = pet.getImagem();
+
+           response.setContentType("image/jpg");
+
+           try (OutputStream outputStream = response.getOutputStream()) {
+                outputStream.write(imageData);
+                outputStream.flush();
+            }
     }
     
     

@@ -32,10 +32,21 @@ public class Pet {
     
     private String porte;
     
+    private String imagePath;
+    
     private String codigoFoto;
     
     @Lob
     private byte[] imagem;
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+    
     
     @ManyToMany(mappedBy = "pets")
     private Set<Tutor> tutors = new HashSet<>();
@@ -102,5 +113,6 @@ public class Pet {
     public void setCodigoFoto(String codigoFoto) {
         this.codigoFoto = codigoFoto;
     }
+
     
 }
