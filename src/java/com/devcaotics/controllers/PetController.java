@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -112,24 +113,23 @@ public class PetController {
        event.getFile().getInputstream().read(im);
        
        this.cadastro.setImagem(im);
-       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Imagem Uploidada"));
        
-       ((HttpSession)FacesContext.getCurrentInstance()
-               .getExternalContext().getSession(true))
-               .setAttribute("imagem", this.cadastro.getImagem());
-       
-       
-       Double randomCodigo = random.nextDouble() * 100;
-       this.addImagem(randomCodigo, this.cadastro.getImagem());
+       String randomCodigo = UUID.randomUUID().toString();
        
        this.cadastro.setCodigoFoto(randomCodigo);
        
-       this.tagImagem = "http://localhost:8080/ticdoguinho1/ServletExibirImagemPet";
+//       ((HttpSession)FacesContext.getCurrentInstance()
+//               .getExternalContext().getSession(true))
+//               .setAttribute("imagem", this.cadastro.getImagem());
+
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+                .put("petImage_" + randomCodigo, this.cadastro.getImagem());
+
        
     }
       
        public String getImageUrl(Pet pet) {
-       return "/ServletExibirImagemPet?petId=" + pet.getCodigo();
+       return "/ServletExibirImagemPet?imageId=" + pet.getCodigoFoto();
    }
      
     

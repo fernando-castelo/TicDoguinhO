@@ -8,6 +8,7 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
     </h:head>
     <h:body>
         
@@ -41,11 +42,13 @@
             
             <h:panelGroup rendered="#{not empty tController.tutorPets}">
                 <ui:repeat value="#{tController.tutorPets}" var="pet">
-                    <p:graphicImage styleClass="rounded-image resized-image" class="rounded-circle" value="#{petController.getImagem(pet.codigoFoto)}" alt="Profile Picture" />
+                    <p:graphicImage styleClass="rounded-image resized-image" class="rounded-circle" value="#{petController.getImageUrl(pet)}" alt="Profile Picture" />
+                    <br/>
                     <h:outputText value="#{pet.nome}"/>
+                    <br/>
                 </ui:repeat>
             </h:panelGroup>
-            
+                     
                 
         </b:form>
     </h:body>

@@ -32,7 +32,7 @@ public class Pet {
     
     private String porte;
     
-    private Double codigoFoto;
+    private String codigoFoto;
     
     @Lob
     private byte[] imagem;
@@ -94,12 +94,12 @@ public class Pet {
     public void setImagem(byte[] imagem) {
         this.imagem = imagem;
     }
-    
-    public Double getCodigoFoto() {
+
+    public String getCodigoFoto() {
         return codigoFoto;
     }
 
-    public void setCodigoFoto(Double codigoFoto) {
+    public void setCodigoFoto(String codigoFoto) {
         this.codigoFoto = codigoFoto;
     }
     

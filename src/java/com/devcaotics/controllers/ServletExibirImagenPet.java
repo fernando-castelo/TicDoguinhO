@@ -41,7 +41,8 @@ public class ServletExibirImagenPet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        byte[] imagem = (byte[])request.getSession().getAttribute("imagem");
+        String imageId = request.getParameter("imageId");
+        byte[] imagem = (byte[])request.getSession().getAttribute("petImage_" + imageId);
         
         response.setContentType("image/jpg");
         
