@@ -51,8 +51,5 @@ public class Postagem {
     public void setPet(Pet pet) {
         this.pet = pet;
     }
-    
-    
-    
-    
+     
 }

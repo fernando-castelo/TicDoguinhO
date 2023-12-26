@@ -9,6 +9,7 @@
     </h:head>
     <h:body>
      
+      <b:growl id="gro" delay="4000"/>
       <b:form>     
         <b:navBar brand="Home" brand-href="menuTutor.xhtml">
                  <b:navbarLinks>
@@ -22,15 +23,26 @@
                  </b:navbarLinks>
         </b:navBar> 
           
-        <b:commandButton value="Nova Postagem"/> 
+        <b:commandButton value="Nova Postagem" oncomplete="$('.modalCadastro').modal()" ajax="true"/> 
           
-          
-        <p>${sessionScope.selectedPet.nome}</p>
+        <p>${petController.selecionado.nome}</p>
         <br/>
         <p:graphicImage styleClass="rounded-image resized-image" class="rounded-circle" value="#{petController.getImageUrl(sessionScope.selectedPet)}" alt="Profile Picture" />
-
     
       </b:form>
+        
+        <b:modal id="modalCadastro" title="Cadastro de Postagem" class="modalCadastro">
+            
+            <b:form id="formModal" enctype="multipart/form-data">
+                <b:panelGrid columns="3">
+                    <h:outputText value="Texto: "/>
+                    <b:inputText value="#{postagemController.cadastro.textoPost}" />
+                    <h:outputText value=""/>
+                </b:panelGrid>
+                <b:commandButton value="cadastrar" action="#{postagemController.insert()}" ajax="false" update=":gro" />
+                <b:button value="close" dismiss="modal"/>
+            </b:form>
+        </b:modal>
     </h:body>
 </html>
 

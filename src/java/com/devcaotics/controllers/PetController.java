@@ -6,6 +6,7 @@
 package com.devcaotics.controllers;
 
 import com.devcaotics.model.Pet;
+import com.devcaotics.model.Postagem;
 import com.devcaotics.model.dao.ManagerDao;
 import com.devcaotics.utils.SessionUtils;
 import java.io.FileOutputStream;
@@ -31,17 +32,22 @@ import org.primefaces.event.FileUploadEvent;
  */
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class PetController {
     
     private Pet cadastro;
     private Pet selecionado;
+    
+    private Postagem postCadastro;
+    private Postagem postSelecionado;
     
     private EntityManager entityManager;
 
     public PetController() {
         this.cadastro = new Pet();
         this.selecionado = new Pet();
+        this.postCadastro = new Postagem();
+        this.postSelecionado = new Postagem();
     }
     
     public List<Pet> readAll() {
@@ -58,8 +64,6 @@ public class PetController {
 ////        
 ////        return query.getResultList();
 //    }
-    
-
     
     public void insert() {
         
@@ -113,6 +117,7 @@ public class PetController {
        
     public String navigateToPetPage(Pet pet) {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("selectedPet", pet);
+        this.setSelecionado(pet);
         return "menuPetIndividual.xhtml";
     }  
        
@@ -132,5 +137,20 @@ public class PetController {
     public void setCadastro(Pet cadastro) {
         this.cadastro = cadastro;
     }
-    
+
+    public Postagem getPostCadastro() {
+        return postCadastro;
+    }
+
+    public void setPostCadastro(Postagem postCadastro) {
+        this.postCadastro = postCadastro;
+    }
+
+    public Postagem getPostSelecionado() {
+        return postSelecionado;
+    }
+
+    public void setPostSelecionado(Postagem postSelecionado) {
+        this.postSelecionado = postSelecionado;
+    }
 }

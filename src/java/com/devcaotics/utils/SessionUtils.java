@@ -6,7 +6,9 @@
 package com.devcaotics.utils;
 
 import com.devcaotics.controllers.LoginController;
+import com.devcaotics.controllers.PetController;
 import com.devcaotics.controllers.TutorController;
+import com.devcaotics.model.Pet;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -29,5 +31,12 @@ public class SessionUtils {
         ExternalContext externalContext = facesContext.getExternalContext();
         HttpSession session = (HttpSession) externalContext.getSession(true);
         return (TutorController) session.getAttribute("tutorController");
+  }
+  
+  public static PetController getPetController() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
+        HttpSession session = (HttpSession) externalContext.getSession(true);
+        return (PetController) session.getAttribute("petController");
   }
 }

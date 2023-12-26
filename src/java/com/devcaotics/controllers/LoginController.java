@@ -55,7 +55,4 @@ public class LoginController {
         this.logado = logado;
     }
     
-    
-    
-    
 }
