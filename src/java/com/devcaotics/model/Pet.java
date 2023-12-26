@@ -7,12 +7,14 @@ package com.devcaotics.model;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -50,7 +52,24 @@ public class Pet {
     
     @ManyToMany(mappedBy = "pets")
     private Set<Tutor> tutors = new HashSet<>();
+    
+    @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
+    private Set<Postagem> postagens = new HashSet<>();
+    
+    public void addPostagem(Postagem postagem) {
+        postagens.add(postagem);
+        postagem.setPet(this);
+    }
 
+    public void removePostagem(Postagem postagem) {
+        postagens.remove(postagem);
+        postagem.setPet(null);
+    }
+
+    public Set<Postagem> getPostagens() {
+        return postagens;
+    }
+    
     public void addTutor(Tutor tutor) {
         tutors.add(tutor);
         tutor.getPets().add(this);

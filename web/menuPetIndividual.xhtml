@@ -22,6 +22,9 @@
                  </b:navbarLinks>
         </b:navBar> 
           
+        <b:commandButton value="Nova Postagem"/> 
+          
+          
         <p>${sessionScope.selectedPet.nome}</p>
         <br/>
         <p:graphicImage styleClass="rounded-image resized-image" class="rounded-circle" value="#{petController.getImageUrl(sessionScope.selectedPet)}" alt="Profile Picture" />
