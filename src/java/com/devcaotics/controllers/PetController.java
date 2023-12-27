@@ -116,8 +116,8 @@ public class PetController {
      }
        
     public String navigateToPetPage(Pet pet) {
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("selectedPet", pet);
         this.setSelecionado(pet);
+        System.out.println("Postagens for Pet: " + pet.getPostagens());
         return "menuPetIndividual.xhtml";
     }  
        

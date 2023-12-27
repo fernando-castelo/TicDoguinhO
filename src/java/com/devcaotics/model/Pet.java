@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,7 +43,7 @@ public class Pet {
     @ManyToMany(mappedBy = "pets")
     private Set<Tutor> tutors = new HashSet<>();
     
-    @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "pet", cascade = CascadeType.ALL)
     private Set<Postagem> postagens = new HashSet<>();
     
     public void addPostagem(Postagem postagem) {

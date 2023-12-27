@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -26,9 +27,16 @@
         <b:commandButton value="Nova Postagem" oncomplete="$('.modalCadastro').modal()" ajax="true"/> 
           
         <p>${petController.selecionado.nome}</p>
+        <p>${petController.selecionado.postagens}</p>
         <br/>
-        <p:graphicImage styleClass="rounded-image resized-image" class="rounded-circle" value="#{petController.getImageUrl(sessionScope.selectedPet)}" alt="Profile Picture" />
     
+        <h:panelGroup rendered="#{not empty petController.selecionado.postagens}">
+                <ui:repeat value="#{petController.selecionado.postagens}" var="postagem">
+                    <h:outputText value="#{postagem.textoPost}"/>
+                        <br/>
+                </ui:repeat>
+         </h:panelGroup> 
+        
       </b:form>
         
         <b:modal id="modalCadastro" title="Cadastro de Postagem" class="modalCadastro">
