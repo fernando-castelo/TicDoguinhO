@@ -25,15 +25,16 @@
             </c:if>
             
             <b:navBar brand="Home" brand-href="menuTutor.xhtml">
-                <b:navbarLinks>
-                    <b:navCommandLink value="Seus Pets" action="menuPets.xhtml" href="#" />
-                </b:navbarLinks>
-                <b:navbarLinks pull="right">
-                    <b:dropMenu value="#{loginController.logado.usuario}" icon="user">
-                        <b:navCommandLink value="Informacoes" action="informacoesTutor.xhtml" href="#"/>
-                        <b:navCommandLink value="Logout" action="${loginController.logout()}" />
-                    </b:dropMenu>
-                </b:navbarLinks>
+                 <b:navbarLinks>
+                     <b:navCommandLink value="Seus Pets" action="menuPets.xhtml" href="#" />
+                     <b:navCommandLink value="Pagina Pet" action="${petController.navigateToPetPage(petController.selecionado)}"/>
+                 </b:navbarLinks>
+                 <b:navbarLinks pull="right">
+                     <b:dropMenu value="#{loginController.logado.usuario}" icon="user">
+                         <b:navCommandLink value="Informacoes" action="informacoesTutor.xhtml" href="#"/>
+                         <b:navCommandLink value="Logout" action="${loginController.logout()}" />
+                     </b:dropMenu>
+                 </b:navbarLinks>
             </b:navBar> 
            
             

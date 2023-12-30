@@ -5,10 +5,13 @@
  */
 package com.devcaotics.controllers;
 
+import com.devcaotics.model.Pet;
 import com.devcaotics.model.Postagem;
 import com.devcaotics.model.dao.ManagerDao;
 import com.devcaotics.utils.SessionUtils;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -56,6 +59,16 @@ public class PostagemController {
         
     }
     
+    public List<Postagem> getPostagensByPet() {
+        
+        PetController petController = SessionUtils.getPetController();
+        
+        Set<Postagem> petPostagens = petController.getSelecionado().getPostagens();
+        
+        List<Postagem> postagemList = new ArrayList<>(petPostagens);
+
+        return postagemList;
+    }
 
     public Postagem getCadastro() {
         return cadastro;

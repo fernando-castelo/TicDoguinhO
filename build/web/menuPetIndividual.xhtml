@@ -15,6 +15,7 @@
         <b:navBar brand="Home" brand-href="menuTutor.xhtml">
                  <b:navbarLinks>
                      <b:navCommandLink value="Seus Pets" action="menuPets.xhtml" href="#" />
+                     <b:navCommandLink value="Pagina Pet" action="${petController.navigateToPetPage(petController.selecionado)}"/>
                  </b:navbarLinks>
                  <b:navbarLinks pull="right">
                      <b:dropMenu value="#{loginController.logado.usuario}" icon="user">
@@ -24,14 +25,19 @@
                  </b:navbarLinks>
         </b:navBar> 
           
-        <b:commandButton value="Nova Postagem" oncomplete="$('.modalCadastro').modal()" ajax="true"/> 
+        <b:form id="formBusca" enctype="multipart/form-data">
+                <b:panelGrid columns="3">
+                    <h:outputText value="Pesquisar Pet Por Nome: "/>
+                    <b:inputText value="#{petController.nomeProcurado}" />
+                    <h:outputText value=""/>
+                </b:panelGrid>
+            <b:commandButton value="buscar" action="#{petController.navigateToSearchPage}" ajax="false" update=":gro" />
+       </b:form>
           
-        <p>${petController.selecionado.nome}</p>
-        <p>${petController.selecionado.postagens}</p>
-        <br/>
+        <b:commandButton value="Nova Postagem" oncomplete="$('.modalCadastro').modal()" ajax="true"/> 
     
-        <h:panelGroup rendered="#{not empty petController.selecionado.postagens}">
-                <ui:repeat value="#{petController.selecionado.postagens}" var="postagem">
+        <h:panelGroup rendered="#{not empty postagemController.postagensByPet}">
+                <ui:repeat value="#{postagemController.postagensByPet}" var="postagem">
                     <h:outputText value="#{postagem.textoPost}"/>
                         <br/>
                 </ui:repeat>

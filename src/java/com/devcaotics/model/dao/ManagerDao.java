@@ -89,6 +89,17 @@ public class ManagerDao {
         return pet;
     }
     
+    public List<Pet> searchPetsByName(String name) {
+        EntityManager em = emf.createEntityManager();
+        
+        Query query = em.createQuery("SELECT p FROM Pet p WHERE p.nome LIKE :busca");
+        query.setParameter("busca", name + "%");
+        
+        List<Pet> petsEncontrados = query.getResultList();
+        
+        return petsEncontrados;
+    }
+    
     public void delete(Object o){
         EntityManager em = emf.createEntityManager();
         

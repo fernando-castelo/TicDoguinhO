@@ -7,13 +7,16 @@ package com.devcaotics.controllers;
 
 import com.devcaotics.model.Pet;
 import com.devcaotics.model.Postagem;
+import com.devcaotics.model.Tutor;
 import com.devcaotics.model.dao.ManagerDao;
 import com.devcaotics.utils.SessionUtils;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -23,6 +26,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpSession;
 import org.primefaces.event.FileUploadEvent;
 
@@ -38,16 +42,14 @@ public class PetController {
     private Pet cadastro;
     private Pet selecionado;
     
-    private Postagem postCadastro;
-    private Postagem postSelecionado;
+    private List<Pet> petsEncontrados;
+    private String nomeProcurado;
     
     private EntityManager entityManager;
 
     public PetController() {
         this.cadastro = new Pet();
         this.selecionado = new Pet();
-        this.postCadastro = new Postagem();
-        this.postSelecionado = new Postagem();
     }
     
     public List<Pet> readAll() {
@@ -106,8 +108,8 @@ public class PetController {
                .setAttribute("imagem", this.cadastro.getImagem());
 
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-                .put("petImage_" + randomCodigo, this.cadastro.getImagem());
-
+                .put("petImage_" + randomCodigo,
+        this.cadastro.getImagem());
        
     }
       
@@ -116,10 +118,28 @@ public class PetController {
      }
        
     public String navigateToPetPage(Pet pet) {
+        
         this.setSelecionado(pet);
-        System.out.println("Postagens for Pet: " + pet.getPostagens());
         return "menuPetIndividual.xhtml";
     }  
+    
+    public String navigateToSearchPage() {
+      
+        List<Pet> petsEncontrados = ManagerDao.getCurrentInstance().searchPetsByName(this.nomeProcurado);
+        this.petsEncontrados = petsEncontrados;
+
+        return "menuBuscaPets.xhtml";
+    }
+    
+    public Tutor getPetTutor(Pet pet) {
+        
+       Set<Tutor> petTutors = pet.getTutors();
+       
+       List<Tutor> tutorList = new ArrayList<>(petTutors);
+       
+       return tutorList.get(0);
+    }
+    
        
       public Pet getSelecionado() {
         return selecionado;
@@ -138,19 +158,21 @@ public class PetController {
         this.cadastro = cadastro;
     }
 
-    public Postagem getPostCadastro() {
-        return postCadastro;
+    public List<Pet> getPetsEncontrados() {
+        return petsEncontrados;
     }
 
-    public void setPostCadastro(Postagem postCadastro) {
-        this.postCadastro = postCadastro;
+    public void setPetsEncontrados(List<Pet> petsEncontrados) {
+        this.petsEncontrados = petsEncontrados;
     }
 
-    public Postagem getPostSelecionado() {
-        return postSelecionado;
+    public String getNomeProcurado() {
+        return nomeProcurado;
     }
 
-    public void setPostSelecionado(Postagem postSelecionado) {
-        this.postSelecionado = postSelecionado;
+    public void setNomeProcurado(String nomeProcurado) {
+        this.nomeProcurado = nomeProcurado;
     }
+    
+    
 }
