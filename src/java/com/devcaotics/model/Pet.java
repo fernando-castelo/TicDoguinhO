@@ -5,7 +5,9 @@
  */
 package com.devcaotics.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,6 +15,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -45,6 +49,34 @@ public class Pet {
     
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "pet", cascade = CascadeType.ALL)
     private Set<Postagem> postagens = new HashSet<>();
+
+    @ManyToMany(mappedBy = "seguindo")
+    private List<Pet> seguidores = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+        name = "pet_seguindo",
+        joinColumns = @JoinColumn(name = "seguindo_id"),
+        inverseJoinColumns = @JoinColumn(name = "seguidor_id"))
+    private List<Pet> seguindo = new ArrayList<>();
+
+    public List<Pet> getSeguidores() {
+        return seguidores;
+    }
+
+    public List<Pet> getSeguindo() {
+        return seguindo;
+    }
+
+    public Pet addSeguidor(Pet pet, Pet seguidor) {
+        pet.seguidores.add(seguidor);
+        return pet;
+    }
+
+    public Pet addSeguindo(Pet pet, Pet seguindo) {
+        seguindo.seguindo.add(pet);
+        return seguindo;
+    }
     
     public void addPostagem(Postagem postagem) {
         postagens.add(postagem);

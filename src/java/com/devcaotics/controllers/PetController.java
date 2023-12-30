@@ -41,6 +41,7 @@ public class PetController {
     
     private Pet cadastro;
     private Pet selecionado;
+    private Pet visualizado;
     
     private List<Pet> petsEncontrados;
     private String nomeProcurado;
@@ -82,6 +83,21 @@ public class PetController {
        this.cadastro = new Pet();
        
        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pet cadastrado com sucesso!"));
+    }
+    
+    public void adicionarSeguidor(Pet pet) {
+        
+       Pet petAtualizado = pet.addSeguidor(pet, this.selecionado);
+       
+       pet.getSeguidores().add(this.selecionado);
+       
+       Pet petSelecionadoAtualizado = pet.addSeguindo(pet, this.selecionado);
+       
+       ManagerDao.getCurrentInstance().update(petAtualizado);
+       ManagerDao.getCurrentInstance().update(petSelecionadoAtualizado);
+       
+       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pet cadastrado com sucesso!"));
+       
     }
     
       public void update() {
@@ -131,6 +147,11 @@ public class PetController {
         return "menuBuscaPets.xhtml";
     }
     
+    public String navigateToSearchedPetPage(Pet pet) {
+        this.setVisualizado(pet);
+        return "menuPetEncontrado.xhtml";
+    }
+    
     public Tutor getPetTutor(Pet pet) {
         
        Set<Tutor> petTutors = pet.getTutors();
@@ -138,6 +159,12 @@ public class PetController {
        List<Tutor> tutorList = new ArrayList<>(petTutors);
        
        return tutorList.get(0);
+    }
+    
+        
+    public List<Pet> getSeguidores() {
+        
+       return this.selecionado.getSeguidores();
     }
     
        
@@ -173,6 +200,15 @@ public class PetController {
     public void setNomeProcurado(String nomeProcurado) {
         this.nomeProcurado = nomeProcurado;
     }
+
+    public Pet getVisualizado() {
+        return visualizado;
+    }
+
+    public void setVisualizado(Pet visualizado) {
+        this.visualizado = visualizado;
+    }
+    
     
     
 }

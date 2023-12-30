@@ -38,10 +38,24 @@
     
         <h:panelGroup rendered="#{not empty postagemController.postagensByPet}">
                 <ui:repeat value="#{postagemController.postagensByPet}" var="postagem">
-                    <h:outputText value="#{postagem.textoPost}"/>
-                        <br/>
+                    <div style="margin-bottom: 10px;">
+                        <h:outputText value="#{postagem.textoPost}"/>
+                    </div>
+                    <br/>
                 </ui:repeat>
          </h:panelGroup> 
+        
+        
+        <h:panelGroup rendered="#{not empty petController.seguidores}">
+                 <h:outputText value="SEGUIDORES: "/>
+                 <ui:repeat value="#{petController.seguidores}" var="seguidor">
+                       <div style="margin-bottom: 10px;">
+                           <h:outputText value="#{seguidor.nome}"/>
+                       </div>
+                       <br/>
+                   </ui:repeat>
+         </h:panelGroup> 
+        
         
       </b:form>
         

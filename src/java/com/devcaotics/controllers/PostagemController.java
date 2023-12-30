@@ -69,6 +69,17 @@ public class PostagemController {
 
         return postagemList;
     }
+    
+    public List<Postagem> getPostagensByPetVisualizado() {
+        
+        PetController petController = SessionUtils.getPetController();
+        
+        Set<Postagem> petPostagens = petController.getVisualizado().getPostagens();
+        
+        List<Postagem> postagemList = new ArrayList<>(petPostagens);
+
+        return postagemList;
+    }
 
     public Postagem getCadastro() {
         return cadastro;
