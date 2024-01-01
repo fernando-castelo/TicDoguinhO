@@ -6,6 +6,7 @@
 package com.devcaotics.model.dao;
 
 import com.devcaotics.model.Pet;
+import com.devcaotics.model.Postagem;
 import com.devcaotics.model.Tutor;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -87,6 +88,18 @@ public class ManagerDao {
         Pet pet = (Pet) query.getSingleResult();
         
         return pet;
+    }
+    
+    public Postagem readPostagem(String postagemId) {
+        
+        EntityManager em = emf.createEntityManager();
+        
+        Query query = em.createQuery("SELECT p FROM Postagem p WHERE p.codigo = :postagemId");
+        query.setParameter("postagemId", Integer.parseInt(postagemId));
+        Postagem postagem = (Postagem) query.getSingleResult();
+        
+        return postagem;
+        
     }
     
     public List<Pet> searchPetsByName(String name) {

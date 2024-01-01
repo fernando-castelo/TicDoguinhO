@@ -57,17 +57,6 @@ public class PetController {
         return ManagerDao.getCurrentInstance().read("Select p from Pet p", Pet.class);
     }
     
-//    public List<Pet> getTutorPets() {
-//        
-////        LoginController login = SessionUtils.getLoginController();
-////        
-////        String jpql = "SELECT pet FROM Pet pet JOIN pet.tutors tutor WHERE tutor.codigo = :tutorCodigo";
-////        Query query = entityManager.createQuery(jpql, Pet.class);
-////        query.setParameter("tutorCodigo", login.getLogado().getCodigo());
-////        
-////        return query.getResultList();
-//    }
-    
     public void insert() {
         
        LoginController tutor = SessionUtils.getLoginController();

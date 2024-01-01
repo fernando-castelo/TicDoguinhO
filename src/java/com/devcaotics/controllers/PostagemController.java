@@ -9,6 +9,7 @@ import com.devcaotics.model.Pet;
 import com.devcaotics.model.Postagem;
 import com.devcaotics.model.dao.ManagerDao;
 import com.devcaotics.utils.SessionUtils;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -20,6 +21,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -110,6 +113,20 @@ public class PostagemController {
 
         return postagemList;
     }
+    
+    public void handleVideoUpload(FileUploadEvent event) throws IOException {
+        UploadedFile uploadedVideo = event.getFile();
+        byte[] videoData = new byte[(int) uploadedVideo.getSize()];
+        uploadedVideo.getInputstream().read(videoData);
+
+        this.cadastro.setVideo(videoData);
+
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Vídeo enviado com sucesso!"));
+    }
+    
+     public String getVideoUrl(Postagem postagem) {
+        return "/ServletExibirVideoPostagem?petId=" + postagem.getCodigo();
+     }
 
     public Postagem getCadastro() {
         return cadastro;

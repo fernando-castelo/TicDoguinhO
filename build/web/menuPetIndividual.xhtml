@@ -42,6 +42,10 @@
                 <ui:repeat value="#{postagemController.postagensByPet}" var="postagem">
                     <div style="margin-bottom: 10px;">
                         <h:outputText value="#{postagem.textoPost}"/>
+                        <video width="400" controls>
+                            <source src="#{request.contextPath}/serveletExibirVideoPostagem?postagemId=#{postagem.codigo}" type="video/mp4"/>
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                     <br/>
                 </ui:repeat>
@@ -70,6 +74,11 @@
                     <h:outputText value="Texto: "/>
                     <b:inputText value="#{postagemController.cadastro.textoPost}" />
                     <h:outputText value=""/>
+                    
+                    <h:outputText value="Vídeo: "/>
+                    <p:fileUpload fileUploadListener="#{postagemController.handleVideoUpload}" mode="advanced"
+                    auto="true" sizeLimit="50000000" allowTypes="/(\.|\/)(mp4|avi|mkv)$/"
+                    />
                 </b:panelGrid>
                 <b:commandButton value="cadastrar" action="#{postagemController.insert()}" ajax="false" update=":gro" />
                 <b:button value="close" dismiss="modal"/>

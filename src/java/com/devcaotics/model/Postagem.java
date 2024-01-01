@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
@@ -31,6 +32,9 @@ public class Postagem {
     
     @ManyToOne
     private Pet pet;
+    
+    @Lob
+    private byte[] video;
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataPublicacao;
@@ -72,7 +76,13 @@ public class Postagem {
     public void setDataPublicacao(Date dataPublicacao) {
         this.dataPublicacao = dataPublicacao;
     }
+
+    public byte[] getVideo() {
+        return video;
+    }
+
+    public void setVideo(byte[] video) {
+        this.video = video;
+    }
     
-    
-     
 }
