@@ -26,13 +26,15 @@
         </b:navBar> 
           
         <b:form id="formBusca" enctype="multipart/form-data">
-                <b:panelGrid columns="3">
+            <b:panelGrid columns="1">
                     <h:outputText value="Pesquisar Pet Por Nome: "/>
                     <b:inputText value="#{petController.nomeProcurado}" />
                     <h:outputText value=""/>
-                </b:panelGrid>
-            <b:commandButton value="buscar" action="#{petController.navigateToSearchPage}" ajax="false" update=":gro" />
+                    <b:commandButton value="buscar" action="#{petController.navigateToSearchPage}" ajax="false" update=":gro" />
+            </b:panelGrid>
        </b:form>
+          
+       <br/>
           
         <b:commandButton value="Nova Postagem" oncomplete="$('.modalCadastro').modal()" ajax="true"/> 
     
@@ -45,15 +47,17 @@
                 </ui:repeat>
          </h:panelGroup> 
         
-        
-        <h:panelGroup rendered="#{not empty petController.seguidores}">
-                 <h:outputText value="SEGUIDORES: "/>
-                 <ui:repeat value="#{petController.seguidores}" var="seguidor">
-                       <div style="margin-bottom: 10px;">
-                           <h:outputText value="#{seguidor.nome}"/>
-                       </div>
-                       <br/>
-                   </ui:repeat>
+        <h:panelGroup rendered="#{not empty postagemController.sortPostagensByDataPublicacao()}">
+                  <h:outputText value="#POSTAGEMNS DEFIINITIVCASSAASA}"/>
+            <ui:repeat value="#{postagemController.sortPostagensByDataPublicacao()}" var="postagem">
+                    <div style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px; border-radius: 5px;">
+                        <h:outputText value="#{postagem.pet.nome}" />
+                        <br/>
+                        <h:outputText value="#{postagem.textoPost}" />
+                        <br/>
+                        <h:outputText value="#{postagem.dataPublicacao}" />
+                    </div>
+            </ui:repeat>
          </h:panelGroup> 
         
         

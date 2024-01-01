@@ -98,6 +98,8 @@ public class PetController {
        
        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pet cadastrado com sucesso!"));
        
+       this.setSelecionado(petSelecionadoAtualizado);
+       
     }
     
       public void update() {
@@ -165,6 +167,10 @@ public class PetController {
     public List<Pet> getSeguidores() {
         
        return this.selecionado.getSeguidores();
+    }
+    
+    public List<Pet> getSeguindo() {
+        return this.selecionado.getSeguindo();
     }
     
        

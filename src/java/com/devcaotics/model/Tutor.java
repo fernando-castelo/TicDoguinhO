@@ -62,6 +62,10 @@ public class Tutor {
         return pets;
     }
 
+    public void setPets(Set<Pet> pets) {
+        this.pets = pets;
+    }
+
     public int getCodigo() {
         return codigo;
     }

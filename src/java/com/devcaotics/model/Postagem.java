@@ -5,12 +5,16 @@
  */
 package com.devcaotics.model;
 
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -27,6 +31,15 @@ public class Postagem {
     
     @ManyToOne
     private Pet pet;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataPublicacao;
+    
+    @PrePersist
+    protected void onCreate() {
+        this.dataPublicacao = new Date();
+    }
+    
 
     public int getCodigo() {
         return codigo;
@@ -51,5 +64,15 @@ public class Postagem {
     public void setPet(Pet pet) {
         this.pet = pet;
     }
+
+    public Date getDataPublicacao() {
+        return dataPublicacao;
+    }
+
+    public void setDataPublicacao(Date dataPublicacao) {
+        this.dataPublicacao = dataPublicacao;
+    }
+    
+    
      
 }

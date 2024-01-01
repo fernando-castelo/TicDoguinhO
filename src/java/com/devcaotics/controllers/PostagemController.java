@@ -10,8 +10,10 @@ import com.devcaotics.model.Postagem;
 import com.devcaotics.model.dao.ManagerDao;
 import com.devcaotics.utils.SessionUtils;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -59,11 +61,39 @@ public class PostagemController {
         
     }
     
-    public List<Postagem> getPostagensByPet() {
+        public List<Postagem> getPostagensByPet() {
         
         PetController petController = SessionUtils.getPetController();
         
         Set<Postagem> petPostagens = petController.getSelecionado().getPostagens();
+        
+        List<Postagem> postagemList = new ArrayList<>(petPostagens);
+
+        return postagemList;
+    }
+        
+    public List<Postagem> sortPostagensByDataPublicacao() {
+        
+         PetController petController = SessionUtils.getPetController();
+         
+         Pet pet = petController.getSelecionado();
+        
+        List<Pet> listaSeguindo = pet.getSeguindo();
+        
+        List<Postagem> listaPostagens = new ArrayList();
+        
+        for(int i = 0; i < listaSeguindo.size(); i++) {
+            listaPostagens.addAll(listaSeguindo.get(i).getPostagens());
+        }
+        
+        return listaPostagens.stream()
+                .sorted(Comparator.comparing(Postagem::getDataPublicacao).reversed())
+                .collect(Collectors.toList());     
+    }
+    
+    public List<Postagem> getPostagensPetSeguido(Pet pet) {
+        
+        Set<Postagem> petPostagens = pet.getPostagens();
         
         List<Postagem> postagemList = new ArrayList<>(petPostagens);
 
@@ -96,7 +126,5 @@ public class PostagemController {
     public void setSelecionado(Postagem selecionado) {
         this.selecionado = selecionado;
     }
-    
-    
-    
+     
 }

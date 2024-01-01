@@ -7,6 +7,13 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
+        <style>
+            .rounded-image {
+                border-radius: 50%;
+                width : 160px;
+                height: 160px;
+            }
+        </style>
     </h:head>
     <h:body>
         
@@ -36,10 +43,10 @@
           
           <h:panelGroup rendered="#{not empty petController.petsEncontrados}">
               <ui:repeat value="#{petController.petsEncontrados}" var="pet">
-                  <div style="margin-bottom: 10px;">
+                  <div style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px; border-radius: 5px;">
                     <b:commandLink action="#{petController.navigateToSearchedPetPage(pet)}" update="@form">
-                        <p:graphicImage styleClass="rounded-image resized-image" class="rounded-circle" value="#{petController.getImageUrl(pet)}" alt="Profile Picture" />
-                        <p:graphicImage styleClass="rouded-image resized-image" class="rounded-circle" value="#{tController.getImageUrl(petController.getPetTutor(pet))}" alt="Tutor Picture"/>
+                        <p:graphicImage styleClass="rounded-image" value="#{petController.getImageUrl(pet)}" alt="Profile Picture" />
+                        <p:graphicImage styleClass="rounded-image" value="#{tController.getImageUrl(petController.getPetTutor(pet))}" alt="Tutor Picture"/>
                         <br/>
                         <h:outputText value="#{pet.nome}"/>
                         <br/>

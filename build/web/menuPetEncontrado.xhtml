@@ -7,6 +7,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
+        
     </h:head>
     <h:body>
         <b:growl id="gro" delay="4000"/>
@@ -31,6 +32,14 @@
                         <br/>
                 </ui:repeat>
          </h:panelGroup> 
+        
+        <h:panelGroup rendered="#{not empty petController.visualizado.seguindo}">
+             <h:outputText value="SEGUINDOOO"/>
+            <ui:repeat value="#{petController.visualizado.seguindo}" var="pet">
+                <h:outputText value="#{pet.nome}"/>
+                </ui:repeat>
+         </h:panelGroup> 
+        
     </h:body>
 </html>
 
