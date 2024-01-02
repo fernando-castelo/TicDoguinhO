@@ -137,6 +137,10 @@ public class PetController {
 
         return "menuBuscaPets.xhtml";
     }
+    public String navigateToSelecionadoPage() {
+        
+        return "feedPetSelecionado.xhtml";
+    }
     
     public String navigateToSearchedPetPage(Pet pet) {
         this.setVisualizado(pet);

@@ -38,6 +38,7 @@ public class PostagemController {
     private Postagem cadastro;
     private Postagem selecionado;
     private ApplicationPart videoUpload;
+    private ApplicationPart tutorVideoUpload;
     
     private EntityManager entityManager;
     
@@ -57,12 +58,23 @@ public class PostagemController {
        this.cadastro.setPet(pet.getSelecionado());
        
        if(this.videoUpload != null) {
+           
+           System.out.println(this.videoUpload.getSubmittedFileName());
            byte[] video = new byte[(int) this.videoUpload.getSize()];
        
            videoUpload.getInputStream().read(video);
 
            this.cadastro.setVideo(video);
        }  
+       
+       if(this.tutorVideoUpload != null) {
+           System.out.println(this.tutorVideoUpload.getSubmittedFileName());
+           byte[] video = new byte[(int) this.tutorVideoUpload.getSize()];
+       
+           tutorVideoUpload.getInputStream().read(video);
+
+           this.cadastro.setTutorVideo(video);
+       }
        
        ManagerDao.getCurrentInstance().insert(this.cadastro);
        
@@ -167,6 +179,37 @@ public class PostagemController {
         this.videoUpload = videoUpload;
     }
 
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
     
+    
+
+//      <h:panelGroup rendered="#{not empty postagemController.postagensByPet}">
+//                <ui:repeat value="#{postagemController.postagensByPet}" var="postagem">
+//                    <div style="margin-bottom: 10px;">
+//                        <h:outputText value="#{postagem.textoPost}"/>
+//  
+//                            <video width="400" controls="controls">
+//                                <source src="#{request.contextPath}/ServeletExibirVideoPostagem?postagemId=#{postagem.codigo}" type="video/mp4"/>
+//                               Your browser does not support the video tag.
+//                            </video>
+//                        
+//                    </div>
+//                    <br/>
+//                </ui:repeat>
+//         </h:panelGroup> 
+
+    public ApplicationPart getTutorVideoUpload() {
+        return tutorVideoUpload;
+    }
+
+    public void setTutorVideoUpload(ApplicationPart tutorVideoUpload) {
+        this.tutorVideoUpload = tutorVideoUpload;
+    }
      
 }

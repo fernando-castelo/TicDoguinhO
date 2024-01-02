@@ -8,11 +8,20 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
+        <style>
+            .buscar {
+                width: 250px;
+            }
+            .searchDiv {
+                margin: 25px;
+            }
+        </style>
     </h:head>
     <h:body>
      
       <b:growl id="gro" delay="4000"/>
-      <b:form>     
+      <b:form>    
+          
         <b:navBar brand="Home" brand-href="menuTutor.xhtml">
                  <b:navbarLinks>
                      <b:navCommandLink value="Seus Pets" action="menuPets.xhtml" href="#" />
@@ -26,41 +35,37 @@
                  </b:navbarLinks>
         </b:navBar> 
           
-        <b:form id="formBusca" enctype="multipart/form-data">
-            <b:panelGrid columns="1">
-                    <h:outputText value="Pesquisar Pet Por Nome: "/>
-                    <b:inputText value="#{petController.nomeProcurado}" />
-                    <h:outputText value=""/>
-                    <b:commandButton value="buscar" action="#{petController.navigateToSearchPage}" ajax="false" update=":gro" />
-            </b:panelGrid>
-       </b:form>
+        <b:form id="formBusca" enctype="multipart/form-data" styleClass="search-form">
+            <div class="searchDiv">
+                <div>
+                    <div class="input-group">
+                        <h:outputText value="Pesquisar Pet Por Nome: " styleClass="input-group-prepend"/>
+                        <b:inputText value="#{petController.nomeProcurado}" styleClass="form-control" />
+                    </div>
+                </div>
+                <div>
+                    <b:commandButton value="Buscar" action="#{petController.navigateToSearchPage}" ajax="false" update=":gro" styleClass="btn btn-primary buscar" />
+                </div>
+            </div>
+        </b:form>
           
        <br/>
           
-        <b:commandButton value="Nova Postagem" oncomplete="$('.modalCadastro').modal()" ajax="true"/> 
-    
-        <h:panelGroup rendered="#{not empty postagemController.postagensByPet}">
-                <ui:repeat value="#{postagemController.postagensByPet}" var="postagem">
-                    <div style="margin-bottom: 10px;">
-                        <h:outputText value="#{postagem.textoPost}"/>
-  
-                            <video width="400" controls="controls">
-                                <source src="#{request.contextPath}/ServeletExibirVideoPostagem?postagemId=#{postagem.codigo}" type="video/mp4"/>
-                               Your browser does not support the video tag.
-                            </video>
-                        
-                    </div>
-                    <br/>
-                </ui:repeat>
-         </h:panelGroup> 
+        <b:commandButton value="Nova Postagem" oncomplete="$('.modalCadastro').modal()" ajax="true"/>
+        <b:commandButton value="Meus Posts" action="#{petController.navigateToSelecionadoPage()}" ajax="true"/>
+
         
         <h:panelGroup rendered="#{not empty postagemController.sortPostagensByDataPublicacao()}">
-                  <h:outputText value="#POSTAGEMNS DEFIINITIVCASSAASA}"/>
             <ui:repeat value="#{postagemController.sortPostagensByDataPublicacao()}" var="postagem">
                     <div style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px; border-radius: 5px;">
                         <h:outputText value="#{postagem.pet.nome}" />
                         <br/>
                         <h:outputText value="#{postagem.textoPost}" />
+                        <br/>
+                        <video width="400" controls="controls">
+                                <source src="#{request.contextPath}/ServletExibirTutorVideoPostagem?postagemId=#{postagem.codigo}" type="video/mp4"/>
+                               Your browser does not support the video tag.
+                        </video>
                         <br/>
                         <h:outputText value="#{postagem.dataPublicacao}" />
                     </div>
@@ -79,6 +84,9 @@
                         
                     <h:outputText value="Vídeo: "/>
                     <h:inputFile id="file" value="#{postagemController.videoUpload}"></h:inputFile>
+                    <br/>
+                    <h:outputText value="Vídeo Tutor: "/>
+                    <h:inputFile id="fileTutor" value="#{postagemController.tutorVideoUpload}"></h:inputFile>
                                 
                 </b:panelGrid>
                 <b:commandButton value="cadastrar" action="#{postagemController.insert()}" ajax="true" update=":gro" />

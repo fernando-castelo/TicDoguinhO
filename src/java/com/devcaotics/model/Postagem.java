@@ -36,6 +36,9 @@ public class Postagem {
     @Lob
     private byte[] video;
     
+    @Lob
+    private byte[] tutorVideo;
+    
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataPublicacao;
     
@@ -83,6 +86,14 @@ public class Postagem {
 
     public void setVideo(byte[] video) {
         this.video = video;
+    }
+
+    public byte[] getTutorVideo() {
+        return tutorVideo;
+    }
+
+    public void setTutorVideo(byte[] tutorVideo) {
+        this.tutorVideo = tutorVideo;
     }
     
 }
