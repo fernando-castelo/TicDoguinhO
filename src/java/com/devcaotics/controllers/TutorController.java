@@ -160,6 +160,14 @@ public class TutorController {
    public String getImageUrl(Tutor tutor) {
        return "/ServletExibirImagemTutor?tutorId=" + tutor.getCodigo();
    }
+   
+   public String handleInsertPet() {
+       PetController petController = SessionUtils.getPetController();
+       
+       petController.insert();
+       
+       return "menuTutor.xhtml?faces-redirect=true";
+   }
          
  
    public void delete() {

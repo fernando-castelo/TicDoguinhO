@@ -20,11 +20,10 @@
     <h:body>
      
       <b:growl id="gro" delay="4000"/>
-      <b:form>    
+      <b:form id="menuPetIndividual">    
           
         <b:navBar brand="Home" brand-href="menuTutor.xhtml">
                  <b:navbarLinks>
-                     <b:navCommandLink value="Seus Pets" action="menuPets.xhtml" href="#" />
                      <b:navCommandLink value="Pagina Pet" action="${petController.navigateToPetPage(petController.selecionado)}"/>
                  </b:navbarLinks>
                  <b:navbarLinks pull="right">
@@ -73,26 +72,8 @@
          </h:panelGroup> 
         
       </b:form>
-      
-         <b:modal id="modalCadastro" title="Cadastro de Postagem" class="modalCadastro">
-            
-            <b:form id="formModal" enctype="multipart/form-data">
-                <b:panelGrid columns="3">
-                    <h:outputText value="Texto: "/>
-                    <b:inputText value="#{postagemController.cadastro.textoPost}" />
-                    <h:outputText value=""/>
-                        
-                    <h:outputText value="Vídeo: "/>
-                    <h:inputFile id="file" value="#{postagemController.videoUpload}"></h:inputFile>
-                    <br/>
-                    <h:outputText value="Vídeo Tutor: "/>
-                    <h:inputFile id="fileTutor" value="#{postagemController.tutorVideoUpload}"></h:inputFile>
-                                
-                </b:panelGrid>
-                <b:commandButton value="cadastrar" action="#{postagemController.insert()}" ajax="true" update=":gro" />
-                <b:button value="close" dismiss="modal"/>
-            </b:form>
-        </b:modal>  
+         
+    
     </h:body>
 </html>
 
