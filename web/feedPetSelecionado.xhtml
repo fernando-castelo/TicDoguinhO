@@ -8,6 +8,12 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
+        <style>
+            .videoCard {
+                max-height: 400px;
+                display: inline;
+            }
+        </style>
     </h:head>
     <h:body>
         
@@ -34,10 +40,16 @@
                     <div style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px; border-radius: 5px;">
                         <h:outputText value="#{postagem.textoPost}"/>
                         <br/>
-                        <video width="400" height="300" controls="controls">
-                           <source src="#{request.contextPath}/ServeletExibirVideoPostagem?postagemId=#{postagem.codigo}" type="video/mp4"/>
+                        <video width="400" class="videoCard" controls="controls">
+                          <source src="#{request.contextPath}/ServeletExibirVideoPostagem?postagemId=#{postagem.codigo}" type="video/mp4"/>
+                          Your browser does not support the video tag.
+                       </video>
+                        
+                        <video controls="controls">
+                           <source src="#{request.contextPath}/ServletExibirTutorVideoPostagem?postagemId=#{postagem.codigo}" type="video/mp4"/>
                            Your browser does not support the video tag.
                         </video>
+                         
                         <br/>
                         <h:outputText value="#{postagem.dataPublicacao}" />
 

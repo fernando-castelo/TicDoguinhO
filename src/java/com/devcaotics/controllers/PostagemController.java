@@ -88,7 +88,7 @@ public class PostagemController {
         
     }
     
-        public List<Postagem> getPostagensByPet() {
+    public List<Postagem> getPostagensByPet() {
         
         PetController petController = SessionUtils.getPetController();
         
@@ -119,10 +119,6 @@ public class PostagemController {
     }
     
     public List<Postagem> sortPostagensPetByDataPublicacao(Pet pet) {
-        
-//        PetController petController = SessionUtils.getPetController();
-//         
-//        Pet pet = petController.getSelecionado();
         
         List<Postagem> listaPostagens = new ArrayList<>(pet.getPostagens());
         
@@ -155,7 +151,6 @@ public class PostagemController {
     
       public void handleFileUpload(FileUploadEvent event) throws IOException {
        
-          System.out.println("handleFileUpload called!");
        byte[] video = new byte[(int) event.getFile().getSize()];
        
        event.getFile().getInputstream().read(video);
@@ -202,22 +197,6 @@ public class PostagemController {
         this.entityManager = entityManager;
     }
     
-    
-
-//      <h:panelGroup rendered="#{not empty postagemController.postagensByPet}">
-//                <ui:repeat value="#{postagemController.postagensByPet}" var="postagem">
-//                    <div style="margin-bottom: 10px;">
-//                        <h:outputText value="#{postagem.textoPost}"/>
-//  
-//                            <video width="400" controls="controls">
-//                                <source src="#{request.contextPath}/ServeletExibirVideoPostagem?postagemId=#{postagem.codigo}" type="video/mp4"/>
-//                               Your browser does not support the video tag.
-//                            </video>
-//                        
-//                    </div>
-//                    <br/>
-//                </ui:repeat>
-//         </h:panelGroup> 
 
     public ApplicationPart getTutorVideoUpload() {
         return tutorVideoUpload;

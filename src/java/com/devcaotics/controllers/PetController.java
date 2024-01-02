@@ -134,8 +134,10 @@ public class PetController {
       
         List<Pet> petsEncontrados = ManagerDao.getCurrentInstance().searchPetsByName(this.nomeProcurado);
         this.petsEncontrados = petsEncontrados;
+        
+        this.nomeProcurado = "";
 
-        return "menuBuscaPets.xhtml";
+        return "menuBuscaPets.xhtml?faces-redirect=true";
     }
     public String navigateToSelecionadoPage() {
         
