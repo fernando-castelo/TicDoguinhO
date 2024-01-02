@@ -4,7 +4,8 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -42,10 +43,12 @@
                 <ui:repeat value="#{postagemController.postagensByPet}" var="postagem">
                     <div style="margin-bottom: 10px;">
                         <h:outputText value="#{postagem.textoPost}"/>
-                        <video width="400" controls>
-                            <source src="#{request.contextPath}/serveletExibirVideoPostagem?postagemId=#{postagem.codigo}" type="video/mp4"/>
-                            Your browser does not support the video tag.
-                        </video>
+  
+                            <video width="400" controls="controls">
+                                <source src="#{request.contextPath}/ServeletExibirVideoPostagem?postagemId=#{postagem.codigo}" type="video/mp4"/>
+                               Your browser does not support the video tag.
+                            </video>
+                        
                     </div>
                     <br/>
                 </ui:repeat>
@@ -64,26 +67,24 @@
             </ui:repeat>
          </h:panelGroup> 
         
-        
       </b:form>
-        
-        <b:modal id="modalCadastro" title="Cadastro de Postagem" class="modalCadastro">
+      
+         <b:modal id="modalCadastro" title="Cadastro de Postagem" class="modalCadastro">
             
             <b:form id="formModal" enctype="multipart/form-data">
                 <b:panelGrid columns="3">
                     <h:outputText value="Texto: "/>
                     <b:inputText value="#{postagemController.cadastro.textoPost}" />
                     <h:outputText value=""/>
-                    
+                        
                     <h:outputText value="Vídeo: "/>
-                    <p:fileUpload fileUploadListener="#{postagemController.handleVideoUpload}" mode="advanced"
-                    auto="true" sizeLimit="50000000" allowTypes="/(\.|\/)(mp4|avi|mkv)$/"
-                    />
+                    <h:inputFile id="file" value="#{postagemController.videoUpload}"></h:inputFile>
+                                
                 </b:panelGrid>
-                <b:commandButton value="cadastrar" action="#{postagemController.insert()}" ajax="false" update=":gro" />
+                <b:commandButton value="cadastrar" action="#{postagemController.insert()}" ajax="true" update=":gro" />
                 <b:button value="close" dismiss="modal"/>
             </b:form>
-        </b:modal>
+        </b:modal>  
     </h:body>
 </html>
 

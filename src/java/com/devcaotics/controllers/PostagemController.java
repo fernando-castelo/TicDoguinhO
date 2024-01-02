@@ -9,6 +9,7 @@ import com.devcaotics.model.Pet;
 import com.devcaotics.model.Postagem;
 import com.devcaotics.model.dao.ManagerDao;
 import com.devcaotics.utils.SessionUtils;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -21,6 +22,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpSession;
+import org.apache.catalina.core.ApplicationPart;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -29,11 +32,12 @@ import org.primefaces.model.UploadedFile;
  * @author Nando
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class PostagemController {
     
     private Postagem cadastro;
     private Postagem selecionado;
+    private ApplicationPart videoUpload;
     
     private EntityManager entityManager;
     
@@ -46,11 +50,19 @@ public class PostagemController {
         return ManagerDao.getCurrentInstance().read("SELECT p FROM Postagem p", Postagem.class);
     }
     
-    public void insert() {
+    public void insert() throws IOException {
        
        PetController pet = SessionUtils.getPetController();
         
        this.cadastro.setPet(pet.getSelecionado());
+       
+       if(this.videoUpload != null) {
+           byte[] video = new byte[(int) this.videoUpload.getSize()];
+       
+           videoUpload.getInputStream().read(video);
+
+           this.cadastro.setVideo(video);
+       }  
        
        ManagerDao.getCurrentInstance().insert(this.cadastro);
        
@@ -114,19 +126,22 @@ public class PostagemController {
         return postagemList;
     }
     
-    public void handleVideoUpload(FileUploadEvent event) throws IOException {
-        UploadedFile uploadedVideo = event.getFile();
-        byte[] videoData = new byte[(int) uploadedVideo.getSize()];
-        uploadedVideo.getInputstream().read(videoData);
-
-        this.cadastro.setVideo(videoData);
-
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Vídeo enviado com sucesso!"));
-    }
+      public void handleFileUpload(FileUploadEvent event) throws IOException {
+       
+          System.out.println("handleFileUpload called!");
+       byte[] video = new byte[(int) event.getFile().getSize()];
+       
+       event.getFile().getInputstream().read(video);
+       
+       this.cadastro.setVideo(video);
+       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Imagem Uploidada"));
+          
+   }
     
      public String getVideoUrl(Postagem postagem) {
-        return "/ServletExibirVideoPostagem?petId=" + postagem.getCodigo();
+        return "/ServeletExibirVideoPostagem?postagemId=" + postagem.getCodigo();
      }
+     
 
     public Postagem getCadastro() {
         return cadastro;
@@ -143,5 +158,15 @@ public class PostagemController {
     public void setSelecionado(Postagem selecionado) {
         this.selecionado = selecionado;
     }
+
+    public ApplicationPart getVideoUpload() {
+        return videoUpload;
+    }
+
+    public void setVideoUpload(ApplicationPart videoUpload) {
+        this.videoUpload = videoUpload;
+    }
+
+    
      
 }
