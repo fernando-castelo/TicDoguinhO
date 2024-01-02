@@ -101,9 +101,9 @@ public class PostagemController {
         
     public List<Postagem> sortPostagensByDataPublicacao() {
         
-         PetController petController = SessionUtils.getPetController();
+        PetController petController = SessionUtils.getPetController();
          
-         Pet pet = petController.getSelecionado();
+        Pet pet = petController.getSelecionado();
         
         List<Pet> listaSeguindo = pet.getSeguindo();
         
@@ -116,6 +116,19 @@ public class PostagemController {
         return listaPostagens.stream()
                 .sorted(Comparator.comparing(Postagem::getDataPublicacao).reversed())
                 .collect(Collectors.toList());     
+    }
+    
+    public List<Postagem> sortPostagensPetSelecionadoByDataPublicacao() {
+        
+        PetController petController = SessionUtils.getPetController();
+         
+        Pet pet = petController.getSelecionado();
+        
+        List<Postagem> listaPostagens = new ArrayList<>(pet.getPostagens());
+        
+        return listaPostagens.stream()
+                .sorted(Comparator.comparing(Postagem::getDataPublicacao).reversed())
+                .collect(Collectors.toList()); 
     }
     
     public List<Postagem> getPostagensPetSeguido(Pet pet) {
