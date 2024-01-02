@@ -14,7 +14,6 @@
         <b:form>     
           <b:navBar brand="Home" brand-href="menuTutor.xhtml">
                    <b:navbarLinks>
-                       <b:navCommandLink value="Seus Pets" action="menuPets.xhtml" href="#" />
                        <b:navCommandLink value="Pagina Pet" action="${petController.navigateToPetPage(petController.selecionado)}"/>
                    </b:navbarLinks>
                    <b:navbarLinks pull="right">
@@ -26,19 +25,32 @@
           </b:navBar>
         </b:form>
         
-        <h:panelGroup rendered="#{not empty postagemController.postagensByPetVisualizado}">
-            <ui:repeat value="#{postagemController.postagensByPetVisualizado}" var="postagem">
-                    <h:outputText value="#{postagem.textoPost}"/>
-                        <br/>
-                </ui:repeat>
-         </h:panelGroup> 
+        <b:form>
+            <div style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px; border-radius: 5px;">
+                <p:graphicImage styleClass="rounded-image" value="#{petController.getImageUrl(petController.visualizado)}" alt="Profile Picture" />
+                 <br/>
+                 <h:outputText value="#{petController.visualizado.nome}"/>
+                 <br/>
+                 <b:commandButton value="Seguir" action="#{petController.adicionarSeguidor(petController.visualizado)}" ajax="false" update=":gro" />
+            </div>
+        </b:form>
         
-        <h:panelGroup rendered="#{not empty petController.visualizado.seguindo}">
-             <h:outputText value="SEGUINDOOO"/>
-            <ui:repeat value="#{petController.visualizado.seguindo}" var="pet">
-                <h:outputText value="#{pet.nome}"/>
-                </ui:repeat>
+        <h:panelGroup rendered="#{not empty postagemController.sortPostagensPetByDataPublicacao(petController.visualizado)}">
+            <ui:repeat value="#{postagemController.sortPostagensPetByDataPublicacao(petController.visualizado)}" var="postagem">
+                <div style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px; border-radius: 5px;">
+                    <h:outputText value="#{postagem.textoPost}"/>
+                    <br/>
+                    <video width="400" height="300" controls="controls">
+                        <source src="#{request.contextPath}/ServeletExibirVideoPostagem?postagemId=#{postagem.codigo}" type="video/mp4"/>
+                        Your browser does not support the video tag.
+                    </video>
+                    <br/>
+                    <h:outputText value="#{postagem.dataPublicacao}" />
+                </div>
+            </ui:repeat>
+            
          </h:panelGroup> 
+
         
     </h:body>
 </html>

@@ -118,11 +118,11 @@ public class PostagemController {
                 .collect(Collectors.toList());     
     }
     
-    public List<Postagem> sortPostagensPetSelecionadoByDataPublicacao() {
+    public List<Postagem> sortPostagensPetByDataPublicacao(Pet pet) {
         
-        PetController petController = SessionUtils.getPetController();
-         
-        Pet pet = petController.getSelecionado();
+//        PetController petController = SessionUtils.getPetController();
+//         
+//        Pet pet = petController.getSelecionado();
         
         List<Postagem> listaPostagens = new ArrayList<>(pet.getPostagens());
         
@@ -130,6 +130,8 @@ public class PostagemController {
                 .sorted(Comparator.comparing(Postagem::getDataPublicacao).reversed())
                 .collect(Collectors.toList()); 
     }
+    
+
     
     public List<Postagem> getPostagensPetSeguido(Pet pet) {
         

@@ -85,7 +85,7 @@ public class PetController {
        ManagerDao.getCurrentInstance().update(petAtualizado);
        ManagerDao.getCurrentInstance().update(petSelecionadoAtualizado);
        
-       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pet cadastrado com sucesso!"));
+       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pet seguido com sucesso!"));
        
        this.setSelecionado(petSelecionadoAtualizado);
        
