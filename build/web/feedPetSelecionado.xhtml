@@ -22,7 +22,6 @@
 
             <b:navBar brand="Home" brand-href="menuTutor.xhtml">
                      <b:navbarLinks>
-                         <b:navCommandLink value="Seus Pets" action="menuPets.xhtml" href="#" />
                          <b:navCommandLink value="Pagina Pet" action="${petController.navigateToPetPage(petController.selecionado)}"/>
                      </b:navbarLinks>
                      <b:navbarLinks pull="right">
@@ -32,6 +31,14 @@
                          </b:dropMenu>
                      </b:navbarLinks>
             </b:navBar> 
+            
+            <b:form>
+                <div style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px; border-radius: 5px;">
+                    <p:graphicImage styleClass="rounded-image" value="#{petController.getImageUrl(petController.selecionado)}" alt="Profile Picture" />
+                     <br/>
+                     <h:outputText value="#{petController.selecionado.nome}"/>
+                </div>
+            </b:form>
             
             <h1>Seus Posts</h1>
 
